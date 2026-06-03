@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Omni MUN — NorCal Independent Delegation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #2e3138;
+    --charcoal-dark: #1a1d22;
+    --charcoal-mid: #3d4148;
+    --off-white: #f4f2ee;
+    --cream: #ede9e1;
+    --gold: #c9a84c;
+    --gold-light: #e4c877;
+    --gold-dark: #9e7a2b;
+    --white: #ffffff;
+    --muted: #8a8d96;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--charcoal-dark);
+    color: var(--off-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 70px;
+    background: rgba(26, 29, 34, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+  }
+
+  .nav-wordmark {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--off-white);
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--charcoal-dark) !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--off-white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 70px; left: 0; right: 0;
+    background: var(--charcoal-dark);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    z-index: 99;
+  }
+
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--off-white);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 2rem 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-bg-rings::before,
+  .hero-bg-rings::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.08);
+  }
+
+  .hero-bg-rings::before { width: 700px; height: 700px; }
+  .hero-bg-rings::after  { width: 1100px; height: 1100px; }
+
+  .hero-logo {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  .hero-title span { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s 0.3s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.9s 0.4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--charcoal-dark);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--off-white);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    border-radius: 4px;
+    border: 1px solid rgba(244, 242, 238, 0.25);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SECTION BASE ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 2rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--charcoal);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(244,242,238,0.75);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--charcoal-dark);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── CONFERENCES ── */
+  #conferences {
+    background: var(--charcoal-dark);
+  }
+
+  .conf-card {
+    background: var(--charcoal);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .conf-info {
+    padding: 3rem;
+    border-right: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .conf-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+    margin-bottom: 1.2rem;
+  }
+
+  .conf-title {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+
+  .conf-host {
+    font-size: 1rem;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .conf-details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .conf-details li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: rgba(244,242,238,0.7);
+  }
+
+  .conf-details li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .conf-register {
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .conf-register h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .conf-register p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  /* ── REGISTRATION FORM ── */
+  .reg-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--charcoal-dark);
+    border: 1px solid rgba(244,242,238,0.12);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--off-white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input::placeholder,
+  .form-group select::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); }
+
+  .form-group select option { background: var(--charcoal-dark); }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 80px; }
+
+  .form-submit {
+    background: var(--gold);
+    color: var(--charcoal-dark);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 13px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.3rem;
+  }
+
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    color: var(--gold-light);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* ── INSTAGRAM ── */
+  #instagram {
+    background: var(--charcoal);
+  }
+
+  .insta-placeholder {
+    border: 1px dashed rgba(201,168,76,0.3);
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .insta-placeholder p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .insta-placeholder .insta-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+  }
+
+  /* This is where your Behold/EmbedSocial widget goes */
+  .instagram-feed-embed {
+    /* Replace this entire section with your embed code */
+    min-height: 300px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(0,0,0,0.4);
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer img {
+    height: 50px;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,12,15,0.85);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--charcoal);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+    position: relative;
+    animation: fadeUp 0.3s ease both;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--off-white); }
+
+  .modal h2 {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .modal-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.8rem;
+  }
+
+  .modal-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.8rem;
+    border-bottom: 1px solid rgba(244,242,238,0.1);
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 20px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+  }
+
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .auth-form { display: flex; flex-direction: column; gap: 0.9rem; }
+
+  .auth-form input {
+    background: var(--charcoal-dark);
+    border: 1px solid rgba(244,242,238,0.12);
+    border-radius: 4px;
+    padding: 11px 14px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--off-white);
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+
+  .auth-form input::placeholder { color: var(--muted); }
+  .auth-form input:focus { border-color: var(--gold); }
+
+  .auth-btn {
+    background: var(--gold);
+    color: var(--charcoal-dark);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 13px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    margin-top: 0.3rem;
+  }
+
+  .auth-btn:hover { background: var(--gold-light); }
+
+  .auth-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+  }
+
+  .auth-error {
+    display: none;
+    font-size: 0.82rem;
+    color: #e07070;
+    background: rgba(224,112,112,0.08);
+    border: 1px solid rgba(224,112,112,0.2);
+    border-radius: 4px;
+    padding: 9px 12px;
+  }
+
+  .auth-error.show { display: block; }
+
+  /* ── SIGNED IN NAV STATE ── */
+  .user-pill {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 50px;
+    padding: 6px 14px 6px 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .user-pill:hover { background: rgba(201,168,76,0.18); }
+
+  .user-pill.visible { display: flex; }
+
+  .user-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--charcoal-dark);
+  }
+
+  .user-name-pill {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--off-white);
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .conf-card { grid-template-columns: 1fr; }
+    .conf-info { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-title { font-size: 2.6rem; }
+    section { padding: 70px 1.2rem; }
+    .conf-info, .conf-register { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="Omni MUN logo" />
+    <span class="nav-wordmark">Omni MUN</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#conferences">Conferences</a></li>
+    <li><a href="#instagram">Updates</a></li>
+    <li><a href="#" id="nav-signin-btn" class="nav-cta">Sign In</a></li>
+  </ul>
+
+  <!-- signed-in pill (hidden by default) -->
+  <div class="user-pill" id="user-pill">
+    <div class="user-avatar" id="user-avatar">?</div>
+    <span class="user-name-pill" id="user-name-pill"></span>
+    <span style="color:var(--muted);font-size:0.75rem;margin-left:2px;">▾</span>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#conferences" onclick="closeMobile()">Conferences</a>
+  <a href="#instagram" onclick="closeMobile()">Updates</a>
+  <a href="#" onclick="closeMobile(); openAuthModal()">Sign In / Register</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg-rings"></div>
+  <img src="logo.png" alt="Omni MUN logo" class="hero-logo" />
+  <p class="hero-eyebrow">Northern California's Independent Delegation</p>
+  <h1 class="hero-title">Omni<br/><span>MUN</span></h1>
+  <p class="hero-sub">Compete at the highest level. Build lifelong skills in diplomacy, public speaking, and global leadership.</p>
+  <div class="hero-btns">
+    <a href="#conferences" class="btn-primary">View Conferences</a>
+    <a href="#about" class="btn-outline">About Us</a>
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">An independent delegation built for NorCal delegates.</h2>
+        <div class="section-divider"></div>
+        <p>Omni MUN is a student-run independent delegation based in Northern California. We send delegates to top-tier Model UN conferences up and down the state, competing against the best delegations in the country.</p>
+        <p>Whether you're a first-time delegate or a seasoned chair, Omni MUN gives you the structure, coaching, and community to perform your best on the floor.</p>
+        <a href="#conferences" class="btn-primary" style="margin-top:1.2rem;display:inline-block;">Register for a Conference</a>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">NorCal</div>
+          <div class="stat-label">Home Region</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">Indep.</div>
+          <div class="stat-label">Delegation</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">Top</div>
+          <div class="stat-label">Conferences</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">All</div>
+          <div class="stat-label">Experience Levels</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CONFERENCES ═══════════════ -->
+<section id="conferences">
+  <div class="container">
+    <p class="section-label">Upcoming Conferences</p>
+    <h2 class="section-title">Register for a Conference</h2>
+    <div class="section-divider"></div>
+
+    <div class="conf-card">
+      <div class="conf-info">
+        <span class="conf-badge">Now Open</span>
+        <h3 class="conf-title">SMUNC XXX</h3>
+        <p class="conf-host">Stanford University · Stanford, CA</p>
+        <ul class="conf-details">
+          <li>Hosted at Stanford University</li>
+          <li>Open to all experience levels</li>
+          <li>Competitive awards in every committee</li>
+          <li>Omni MUN delegation coaching included</li>
+        </ul>
+        <p style="font-size:0.8rem;color:var(--muted);">Fill out the registration form to secure your spot with Omni MUN's delegation at SMUNC XXX.</p>
+      </div>
+
+      <div class="conf-register">
+        <h3>Join Omni MUN at SMUNC XXX</h3>
+        <p>Complete the form below. You'll receive a confirmation and next steps by email.</p>
+
+        <form class="reg-form" id="reg-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="r-first">First Name</label>
+              <input type="text" id="r-first" placeholder="Ada" required />
+            </div>
+            <div class="form-group">
+              <label for="r-last">Last Name</label>
+              <input type="text" id="r-last" placeholder="Lovelace" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="r-email">Email</label>
+            <input type="email" id="r-email" placeholder="you@school.edu" required />
+          </div>
+          <div class="form-group">
+            <label for="r-school">School / Organization</label>
+            <input type="text" id="r-school" placeholder="Your school" required />
+          </div>
+          <div class="form-group">
+            <label for="r-exp">Experience Level</label>
+            <select id="r-exp">
+              <option value="">Select…</option>
+              <option>First conference</option>
+              <option>1–2 conferences</option>
+              <option>3–5 conferences</option>
+              <option>6+ conferences</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="r-notes">Committee preferences or questions (optional)</label>
+            <textarea id="r-notes" placeholder="Any committees you're interested in, or questions for the team…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Submit Registration →</button>
+        </form>
+
+        <div class="form-success" id="form-success">
+          ✦ Registration received! We'll be in touch within a couple days with confirmation and next steps. Welcome to Omni MUN.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INSTAGRAM / UPDATES ═══════════════ -->
+<section id="instagram">
+  <div class="container">
+    <p class="section-label">Latest Updates</p>
+    <h2 class="section-title">Follow @omni_mun</h2>
+    <div class="section-divider"></div>
+
+    <!--
+      ══════════════════════════════════════════════════════
+      HOW TO EMBED YOUR INSTAGRAM FEED (read this!)
+      ══════════════════════════════════════════════════════
+
+      Instagram doesn't let you embed posts directly without
+      a third-party tool. The easiest FREE option is:
+
+      1. Go to https://behold.so  (free tier: 9 posts)
+      2. Sign in with your Instagram account (@omni_mun)
+      3. Create a new feed → copy the <script> embed code
+      4. Delete the placeholder <div> below and paste the
+         Behold embed code in its place.
+
+      Alternative (also free): https://embedsocial.com
+      Or for full control: use Instagram Basic Display API
+      (requires a Meta developer account).
+
+      ══════════════════════════════════════════════════════
+    -->
+
+    <div class="insta-placeholder" id="insta-placeholder">
+      <div class="insta-icon">📸</div>
+      <p>Your Instagram feed will appear here.<br/>See the code comments in <code>index.html</code> for instructions on embedding your @omni_mun posts using <strong>Behold.so</strong> (free).</p>
+    </div>
+
+    <!-- Paste your Behold embed here and delete the placeholder above -->
+    <!-- <script src="https://w.behold.so/widget.js" type="module"></script><behold-widget feed-id="YOUR_FEED_ID"></behold-widget> -->
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <img src="logo.png" alt="Omni MUN" />
+  <p>Omni MUN — NorCal Independent Delegation</p>
+  <p style="margin-top:0.4rem;">
+    <a href="https://instagram.com/omni_mun" target="_blank">Instagram</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:omnimun@gmail.com">Contact Us</a>
+  </p>
+  <p style="margin-top:1.2rem;font-size:0.75rem;opacity:0.4;">© 2025 Omni MUN. All rights reserved.</p>
+</footer>
+
+<!-- ═══════════════ AUTH MODAL ═══════════════ -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close-btn" aria-label="Close">×</button>
+    <h2>Welcome Back</h2>
+    <p class="modal-sub">Sign in or create your Omni MUN account.</p>
+
+    <div class="modal-tabs">
+      <button class="tab-btn active" data-tab="signin">Sign In</button>
+      <button class="tab-btn" data-tab="signup">Create Account</button>
+    </div>
+
+    <!-- SIGN IN -->
+    <div class="tab-panel active" id="tab-signin">
+      <div class="auth-form">
+        <div class="auth-error" id="signin-error"></div>
+        <input type="email" id="si-email" placeholder="Email address" autocomplete="email" />
+        <input type="password" id="si-password" placeholder="Password" autocomplete="current-password" />
+        <button class="auth-btn" id="signin-btn">Sign In</button>
+        <p class="auth-note">Forgot your password? <a href="mailto:omnimun@gmail.com" style="color:var(--gold);">Email us</a></p>
+      </div>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="tab-panel" id="tab-signup">
+      <div class="auth-form">
+        <div class="auth-error" id="signup-error"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;">
+          <input type="text" id="su-first" placeholder="First name" />
+          <input type="text" id="su-last" placeholder="Last name" />
+        </div>
+        <input type="email" id="su-email" placeholder="Email address" autocomplete="email" />
+        <input type="password" id="su-password" placeholder="Create a password" autocomplete="new-password" />
+        <input type="password" id="su-confirm" placeholder="Confirm password" />
+        <button class="auth-btn" id="signup-btn">Create Account</button>
+        <p class="auth-note">By signing up you agree to receive delegation updates from Omni MUN.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Users stored in localStorage (simple, no server needed) ──
+  const USERS_KEY = 'omni_mun_users';
+  const SESSION_KEY = 'omni_mun_session';
+
+  function getUsers() {
+    try { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+
+  function getSession() {
+    try { return JSON.parse(localStorage.getItem(SESSION_KEY)); }
+    catch { return null; }
+  }
+
+  function setSession(user) { localStorage.setItem(SESSION_KEY, JSON.stringify(user)); }
+  function clearSession() { localStorage.removeItem(SESSION_KEY); }
+
+  // ── UI helpers ──
+  function updateNavAuth() {
+    const user = getSession();
+    const signinBtn = document.getElementById('nav-signin-btn');
+    const pill = document.getElementById('user-pill');
+    const avatarEl = document.getElementById('user-avatar');
+    const nameEl = document.getElementById('user-name-pill');
+    if (user) {
+      signinBtn.style.display = 'none';
+      pill.classList.add('visible');
+      const initials = (user.first[0] + user.last[0]).toUpperCase();
+      avatarEl.textContent = initials;
+      nameEl.textContent = user.first;
+    } else {
+      signinBtn.style.display = '';
+      pill.classList.remove('visible');
+    }
+  }
+
+  // ── Modal ──
+  function openAuthModal() {
+    document.getElementById('auth-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAuthModal() {
+    document.getElementById('auth-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('nav-signin-btn').addEventListener('click', e => { e.preventDefault(); openAuthModal(); });
+  document.getElementById('modal-close-btn').addEventListener('click', closeAuthModal);
+  document.getElementById('auth-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAuthModal(); });
+
+  // Sign out via pill click
+  document.getElementById('user-pill').addEventListener('click', () => {
+    if (confirm('Sign out of Omni MUN?')) { clearSession(); updateNavAuth(); }
+  });
+
+  // ── Tabs ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── Sign In ──
+  document.getElementById('signin-btn').addEventListener('click', () => {
+    const email = document.getElementById('si-email').value.trim();
+    const pw = document.getElementById('si-password').value;
+    const errEl = document.getElementById('signin-error');
+    errEl.classList.remove('show');
+
+    if (!email || !pw) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return; }
+
+    const users = getUsers();
+    const user = users.find(u => u.email === email.toLowerCase());
+    if (!user || user.password !== btoa(pw)) {
+      errEl.textContent = 'Incorrect email or password.'; errEl.classList.add('show'); return;
+    }
+
+    setSession(user);
+    updateNavAuth();
+    closeAuthModal();
+  });
+
+  // ── Sign Up ──
+  document.getElementById('signup-btn').addEventListener('click', () => {
+    const first = document.getElementById('su-first').value.trim();
+    const last = document.getElementById('su-last').value.trim();
+    const email = document.getElementById('su-email').value.trim().toLowerCase();
+    const pw = document.getElementById('su-password').value;
+    const pw2 = document.getElementById('su-confirm').value;
+    const errEl = document.getElementById('signup-error');
+    errEl.classList.remove('show');
+
+    if (!first || !last || !email || !pw) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return; }
+    if (pw !== pw2) { errEl.textContent = 'Passwords do not match.'; errEl.classList.add('show'); return; }
+    if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
+
+    const users = getUsers();
+    if (users.find(u => u.email === email)) { errEl.textContent = 'An account with this email already exists.'; errEl.classList.add('show'); return; }
+
+    const newUser = { first, last, email, password: btoa(pw) };
+    users.push(newUser);
+    saveUsers(users);
+    setSession(newUser);
+    updateNavAuth();
+    closeAuthModal();
+  });
+
+  // ── Registration form ──
+  document.getElementById('reg-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const first = document.getElementById('r-first').value.trim();
+    const last = document.getElementById('r-last').value.trim();
+    const email = document.getElementById('r-email').value.trim();
+    const school = document.getElementById('r-school').value.trim();
+    if (!first || !last || !email || !school) { alert('Please fill in all required fields.'); return; }
+
+    // Save registration locally (you can later replace with a form service)
+    const regs = JSON.parse(localStorage.getItem('omni_mun_regs') || '[]');
+    regs.push({
+      first, last, email, school,
+      exp: document.getElementById('r-exp').value,
+      notes: document.getElementById('r-notes').value,
+      conference: 'SMUNC XXX',
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('omni_mun_regs', JSON.stringify(regs));
+
+    document.getElementById('reg-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  });
+
+  // ── Hamburger ──
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+
+  function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+  // ── Init ──
+  updateNavAuth();
+</script>
+</body>
+</html>
