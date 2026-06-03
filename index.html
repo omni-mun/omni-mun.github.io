@@ -157,6 +157,19 @@ footer a{color:var(--gold);text-decoration:none}
 .auth-success{display:none;font-size:.85rem;color:var(--gold-light);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:9px 12px;text-align:center;line-height:1.5}
 .auth-success.show{display:block}
 
+
+/* ACCOUNT MODAL */
+.account-modal{max-width:520px!important}
+.account-section{margin-bottom:1.5rem}
+.account-section h4{font-size:.68rem;font-weight:600;letter-spacing:.12em;color:var(--gold);font-family:var(--mono);margin-bottom:.8rem;text-transform:uppercase}
+.profile-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(244,242,238,.06);font-size:.88rem}
+.profile-row:last-child{border-bottom:none}
+.profile-row span:first-child{color:var(--muted);font-size:.78rem}
+.conf-reg-card{background:var(--charcoal-dark);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:1rem 1.2rem;margin-bottom:.6rem}
+.conf-reg-card h5{font-size:.9rem;font-weight:600;color:var(--white);margin-bottom:.3rem}
+.conf-reg-card p{font-size:.78rem;color:var(--muted);line-height:1.5}
+.conf-reg-none{font-size:.85rem;color:var(--muted);font-style:italic}
+
 /* GOOGLE BUTTON */
 .btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;background:#fff;color:#1f1f1f;font-family:var(--sans);font-size:.9rem;font-weight:600;border:none;border-radius:4px;cursor:pointer;transition:background .15s;margin-bottom:.6rem;text-transform:none}
 .btn-google:hover{background:#f0f0f0}
@@ -260,23 +273,25 @@ footer a{color:var(--gold);text-decoration:none}
     <div class="section-divider"></div>
     <div class="conf-card">
       <div class="conf-info">
-        <span class="conf-badge">now open</span>
+        <span class="conf-badge">now open · nov 6–8, 2026</span>
         <h3 class="conf-title">smunc xxx</h3>
         <p class="conf-host">stanford university · stanford, ca</p>
         <ul class="conf-details">
-          <li>hosted at stanford university</li>
-          <li>open to all experience levels</li>
-          <li>competitive awards in every committee</li>
+          <li>november 6–8, 2026 at stanford university</li>
+          <li>registration closes july 31 — register asap</li>
+          <li>est. ~$450/student (conference + hotel)</li>
+          <li>hotel $199/night, charged per room</li>
           <li>omni mun delegation coaching included</li>
+          <li>questions? dm @omni.mun or email advik.sinha2011@gmail.com</li>
         </ul>
-        <p style="font-size:.8rem;color:var(--muted)">fill out the registration form to secure your spot with omni mun's delegation at smunc xxx.</p>
+        <p style="font-size:.78rem;color:var(--muted);line-height:1.6">payment is due urgently after the group chat is made. we'll add you to the omni smunc group chat once the form closes.</p>
       </div>
-      <div class="conf-register">
+      <div class="conf-register" style="overflow-y:auto;max-height:600px">
         <h3>join omni mun at smunc xxx</h3>
 
         <!-- logged out state -->
         <div id="reg-logged-out">
-          <p>create a free account to register for conferences and track your delegation status.</p>
+          <p>sign in to register for smunc xxx with omni mun.</p>
           <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.8rem">
             <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.82rem;padding:11px 22px">create account</button>
             <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.82rem;padding:11px 22px">sign in</button>
@@ -286,36 +301,118 @@ footer a{color:var(--gold);text-decoration:none}
         <!-- logged in + not yet registered -->
         <form class="reg-form" id="reg-form" style="display:none" novalidate>
           <div class="auth-error" id="reg-error"></div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="r-exp">experience level</label>
-              <select id="r-exp">
-                <option value="">select...</option>
-                <option>first conference</option>
-                <option>1-2 conferences</option>
-                <option>3-5 conferences</option>
-                <option>6+ conferences</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="r-role">preferred role</label>
-              <select id="r-role">
-                <option value="">select...</option>
-                <option>delegate</option>
-                <option>chair</option>
-                <option>either</option>
-              </select>
-            </div>
-          </div>
+
           <div class="form-group">
-            <label for="r-committees">committee preferences (optional)</label>
-            <textarea id="r-committees" placeholder="any committees you're aiming for..."></textarea>
+            <label>instagram username</label>
+            <input type="text" id="r-instagram" placeholder="@yourusername" />
           </div>
+
+          <div class="form-group">
+            <label>years of model un experience</label>
+            <select id="r-exp">
+              <option value="">select...</option>
+              <option value="1">1 year</option>
+              <option value="2">2 years</option>
+              <option value="3">3 years</option>
+              <option value="4">4 years</option>
+              <option value="5">5 years</option>
+              <option value="6">6 years</option>
+              <option value="7">7 years</option>
+              <option value="8">8 years</option>
+              <option value="9">9 years</option>
+              <option value="10">10+ years</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>committee preference</label>
+            <select id="r-committee">
+              <option value="">select a committee...</option>
+              <optgroup label="── general assembly ──">
+                <option>DISEC — Disarmament and International Security</option>
+                <option>UNIFEM — UN Development Fund for Women</option>
+                <option>SOCHUM — Social, Cultural, and Humanitarian</option>
+                <option>SPECPOL — Special Political and Decolonization</option>
+                <option>General Assembly Plenary</option>
+                <option>CSTD — Commission on Science and Technology (beginner friendly)</option>
+                <option>WHO — World Health Organization (beginner friendly)</option>
+              </optgroup>
+              <optgroup label="── specialized bodies ──">
+                <option>UNSC — UN Security Council</option>
+                <option>Congress of Vienna, 1814</option>
+                <option>ICC — International Criminal Court</option>
+                <option>Asian Development Bank</option>
+                <option>NATO Emergency Session, 2028</option>
+                <option>Anthropic AI: Board of Directors</option>
+                <option>Divine Symposium of Greek Patrons</option>
+                <option>World Bank Emergency Session on Argentina, 2001</option>
+              </optgroup>
+              <optgroup label="── crisis committees ──">
+                <option>Ad-Hoc Committee of the Secretary-General</option>
+                <option>Tokugawa Shogunate, 1603</option>
+                <option>Emergency Session of the Soviet Presidium, 1953</option>
+                <option>Cabinet of Singapore</option>
+                <option>JCC Spanish Succession: Habsburg Bloc</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>notes / other committee preferences (optional)</label>
+            <textarea id="r-notes" placeholder="any other committees you're interested in, questions, or notes..."></textarea>
+          </div>
+
+          <div style="border-top:1px solid rgba(201,168,76,.15);padding-top:1rem;margin-top:.5rem">
+            <p style="font-size:.78rem;color:var(--gold);font-family:var(--mono);letter-spacing:.08em;margin-bottom:.8rem">parent / guardian details</p>
+            <p style="font-size:.75rem;color:var(--muted);line-height:1.6;margin-bottom:.8rem">advisors are not required in each room, but there's a $70 fee per advisor who wants to come.</p>
+            <div class="form-group" style="margin-bottom:.6rem">
+              <label>is your guardian considering being an advisor?</label>
+              <select id="r-advisor">
+                <option value="">select...</option>
+                <option value="yes">yes</option>
+                <option value="no">no</option>
+                <option value="maybe">maybe</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:.6rem">
+              <label>guardian's full name</label>
+              <input type="text" id="r-guardian-name" placeholder="full name" />
+            </div>
+            <div class="form-group" style="margin-bottom:.6rem">
+              <label>guardian's email</label>
+              <input type="email" id="r-guardian-email" placeholder="parent@email.com" />
+            </div>
+            <div class="form-group">
+              <label>guardian's phone number</label>
+              <input type="tel" id="r-guardian-phone" placeholder="(555) 000-0000" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>hotel / commute preference</label>
+            <select id="r-hotel">
+              <option value="">select...</option>
+              <option value="hotel">i'll stay at the hotel ($199/night per room)</option>
+              <option value="commute">i'll drive each day</option>
+              <option value="undecided">undecided</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>roommate preference (optional)</label>
+            <input type="text" id="r-roommate" placeholder="who would you want to room with?" />
+          </div>
+
+          <div class="form-group">
+            <label>anything else? (optional)</label>
+            <textarea id="r-description" placeholder="other notes, questions, or anything you want us to know..."></textarea>
+          </div>
+
           <button type="submit" class="form-submit" id="reg-submit">submit registration →</button>
         </form>
 
         <div class="form-success" id="form-success">
-          ✦ registration received! we'll be in touch with confirmation and next steps. welcome to omni mun.
+          ✦ you're registered for smunc xxx! we'll add you to the group chat once the form closes. questions? dm @omni.mun or email advik.sinha2011@gmail.com
         </div>
       </div>
     </div>
@@ -334,13 +431,13 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="tl-events">
           <div class="tl-event">
             <div class="tl-dot"></div>
-            <p class="tl-host">uc los angeles</p>
-            <p class="tl-conf">bruinmun</p>
+            <p class="tl-host">uc los angeles · nov 8–9</p>
+            <p class="tl-conf">bruinmun 33</p>
           </div>
           <div class="tl-event">
             <div class="tl-dot"></div>
-            <p class="tl-host">uc berkeley</p>
-            <p class="tl-conf">bearmun</p>
+            <p class="tl-host">uc berkeley · dec 6–7</p>
+            <p class="tl-conf">bearmun viii</p>
           </div>
         </div>
       </div>
@@ -349,8 +446,13 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="tl-events">
           <div class="tl-event">
             <div class="tl-dot upcoming"></div>
-            <p class="tl-host">uc santa barbara</p>
-            <p class="tl-conf">gauchomun <span class="tl-badge">upcoming</span></p>
+            <p class="tl-host">uc santa barbara · jan 24–25</p>
+            <p class="tl-conf">gauchomun xvii <span class="tl-badge">upcoming</span></p>
+          </div>
+          <div class="tl-event">
+            <div class="tl-dot upcoming"></div>
+            <p class="tl-host">stanford university · nov 6–8</p>
+            <p class="tl-conf">smunc xxx <span class="tl-badge">upcoming</span></p>
           </div>
         </div>
       </div>
@@ -382,6 +484,30 @@ footer a{color:var(--gold);text-decoration:none}
   </p>
   <p style="margin-top:1.2rem;font-size:.72rem;opacity:.35">© 2025 omni mun. all rights reserved.</p>
 </footer>
+
+<!-- ACCOUNT MODAL -->
+<div class="modal-overlay" id="account-modal">
+  <div class="modal account-modal">
+    <button class="modal-close" onclick="closeAccountModal()">&#215;</button>
+    <h2>my account</h2>
+    <p class="modal-sub" id="account-email-sub"></p>
+
+    <div class="account-section">
+      <h4>profile</h4>
+      <div class="profile-row"><span>name</span><span id="acc-name">—</span></div>
+      <div class="profile-row"><span>grade</span><span id="acc-grade">—</span></div>
+      <div class="profile-row"><span>school</span><span id="acc-school">—</span></div>
+      <div class="profile-row"><span>phone</span><span id="acc-phone">—</span></div>
+    </div>
+
+    <div class="account-section">
+      <h4>my conference registrations</h4>
+      <div id="acc-registrations"><p class="conf-reg-none">loading...</p></div>
+    </div>
+
+    <button class="auth-btn" style="background:transparent;border:1px solid rgba(244,242,238,.15);color:var(--muted);margin-top:.5rem" onclick="if(confirm('sign out?'))sb.auth.signOut()">sign out</button>
+  </div>
+</div>
 
 <!-- PROFILE COMPLETION MODAL -->
 <div class="modal-overlay" id="profile-modal">
@@ -452,11 +578,11 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="auth-row">
           <div>
             <span class="field-label">first name</span>
-            <input type="text" id="su-first" placeholder="Omni" />
+            <input type="text" id="su-first" placeholder="advik" />
           </div>
           <div>
             <span class="field-label">last name</span>
-            <input type="text" id="su-last" placeholder="Mun" />
+            <input type="text" id="su-last" placeholder="sinha" />
           </div>
         </div>
         <div>
@@ -603,9 +729,7 @@ document.getElementById('nav-signin-btn').addEventListener('click', e => { e.pre
 document.getElementById('modal-close-btn').addEventListener('click', closeAuthModal);
 document.getElementById('auth-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAuthModal(); });
 document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
-document.getElementById('user-pill').addEventListener('click', async () => {
-  if (confirm('sign out of omni mun?')) await sb.auth.signOut();
-});
+document.getElementById('user-pill').addEventListener('click', openAccountModal);
 
 document.getElementById('signin-btn').addEventListener('click', async () => {
   const email = document.getElementById('si-email').value.trim();
@@ -686,20 +810,90 @@ document.getElementById('profile-save-btn').addEventListener('click', async () =
 document.getElementById('reg-form').addEventListener('submit', async e => {
   e.preventDefault();
   if (!currentUser) return;
+  const instagram = document.getElementById('r-instagram').value.trim();
   const exp = document.getElementById('r-exp').value;
-  const role = document.getElementById('r-role').value;
-  const committees = document.getElementById('r-committees').value;
+  const committee = document.getElementById('r-committee').value;
+  const notes = document.getElementById('r-notes').value;
+  const advisor = document.getElementById('r-advisor').value;
+  const guardianName = document.getElementById('r-guardian-name').value.trim();
+  const guardianEmail = document.getElementById('r-guardian-email').value.trim();
+  const guardianPhone = document.getElementById('r-guardian-phone').value.trim();
+  const hotel = document.getElementById('r-hotel').value;
+  const roommate = document.getElementById('r-roommate').value.trim();
+  const description = document.getElementById('r-description').value;
   const errEl = document.getElementById('reg-error');
   const btn = document.getElementById('reg-submit');
   errEl.classList.remove('show');
-  if (!exp || !role) { errEl.textContent = 'please fill in required fields.'; errEl.classList.add('show'); return; }
+  if (!exp || !committee || !advisor || !guardianName || !guardianEmail || !guardianPhone || !hotel) {
+    errEl.textContent = 'please fill in all required fields.'; errEl.classList.add('show'); return;
+  }
   btn.disabled = true; btn.textContent = 'submitting...';
-  await sb.from('registrations').insert({ user_id: currentUser.id, conference: 'SMUNC XXX', experience: exp, preferred_role: role, committee_notes: committees });
+  const { data: profile } = await sb.from('profiles').select('full_name,grade,school,phone').eq('id', currentUser.id).single();
+  await sb.from('registrations').insert({
+    user_id: currentUser.id,
+    conference: 'SMUNC XXX',
+    name: profile?.full_name || currentUser.email,
+    email: currentUser.email,
+    phone: profile?.phone || '',
+    grade: profile?.grade || '',
+    school: profile?.school || '',
+    instagram,
+    mun_experience_years: exp,
+    committee_preference: committee,
+    notes,
+    guardian_advisor: advisor,
+    guardian_name: guardianName,
+    guardian_email: guardianEmail,
+    guardian_phone: guardianPhone,
+    hotel_preference: hotel,
+    roommate_preference: roommate,
+    description
+  });
   btn.disabled = false; btn.textContent = 'submit registration';
   localStorage.setItem('om_reg_smuncxxx_' + currentUser.id, '1');
   document.getElementById('reg-form').style.display = 'none';
   document.getElementById('form-success').style.display = 'block';
 });
+
+
+// Account modal
+function openAccountModal() {
+  document.getElementById('account-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  loadAccountData();
+}
+function closeAccountModal() {
+  document.getElementById('account-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('account-modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeAccountModal();
+});
+async function loadAccountData() {
+  if (!currentUser) return;
+  document.getElementById('account-email-sub').textContent = currentUser.email;
+  const { data: profile } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  if (profile) {
+    document.getElementById('acc-name').textContent = profile.full_name || '—';
+    document.getElementById('acc-grade').textContent = profile.grade || '—';
+    document.getElementById('acc-school').textContent = profile.school || '—';
+    document.getElementById('acc-phone').textContent = profile.phone || '—';
+  }
+  const { data: regs } = await sb.from('registrations').select('*').eq('user_id', currentUser.id);
+  const container = document.getElementById('acc-registrations');
+  if (!regs || regs.length === 0) {
+    container.innerHTML = '<p class="conf-reg-none">no registrations yet.</p>';
+  } else {
+    container.innerHTML = regs.map(r => `
+      <div class="conf-reg-card">
+        <h5>${r.conference}</h5>
+        <p>committee: ${r.committee_preference || '—'}</p>
+        <p>experience: ${r.mun_experience_years ? r.mun_experience_years + (r.mun_experience_years === '10' ? '+' : '') + ' yr' : '—'}</p>
+        <p>hotel: ${r.hotel_preference || '—'}</p>
+        <p style="margin-top:.3rem;color:rgba(201,168,76,.7);font-size:.72rem">submitted ✓</p>
+      </div>`).join('');
+  }
+}
 
 document.getElementById('hamburger').addEventListener('click', () => {
   document.getElementById('mobile-menu').classList.toggle('open');
