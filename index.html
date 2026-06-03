@@ -3,28 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Omni MUN — NorCal Independent Delegation</title>
+<title>omni mun — norcal independent delegation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --charcoal:#2e3138;--charcoal-dark:#1a1d22;--off-white:#f4f2ee;
   --gold:#c9a84c;--gold-light:#e4c877;--white:#ffffff;--muted:#8a8d96;
-  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+  --sans:'Space Grotesk',system-ui,sans-serif;--mono:'Space Mono',monospace;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--charcoal-dark);color:var(--off-white);min-height:100vh;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--charcoal-dark);color:var(--off-white);min-height:100vh;overflow-x:hidden;text-transform:lowercase}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:70px;background:rgba(26,29,34,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.15)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:70px;background:rgba(26,29,34,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.15)}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.nav-logo img{height:40px;width:40px;object-fit:contain}
-.nav-wordmark{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--off-white)}
+.nav-logo img{height:38px;width:38px;object-fit:contain}
+.nav-wordmark{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--off-white);letter-spacing:-.01em}
 .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
-.nav-links a{font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.04em;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-links a:hover{color:var(--gold)}
 .nav-cta{background:var(--gold)!important;color:var(--charcoal-dark)!important;padding:8px 20px;border-radius:4px;font-weight:600!important}
 .nav-cta:hover{background:var(--gold-light)!important;color:var(--charcoal-dark)!important}
@@ -32,119 +32,132 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .hamburger span{display:block;width:24px;height:2px;background:var(--off-white);border-radius:2px}
 .mobile-menu{display:none;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:var(--charcoal-dark);border-bottom:1px solid rgba(201,168,76,.15);padding:1.5rem 2rem;gap:1.2rem;z-index:99}
 .mobile-menu.open{display:flex}
-.mobile-menu a{font-size:1rem;font-weight:500;color:var(--off-white);text-decoration:none;letter-spacing:.05em;text-transform:uppercase}
+.mobile-menu a{font-size:1rem;font-weight:500;color:var(--off-white);text-decoration:none;letter-spacing:.02em}
 .user-pill{display:none;align-items:center;gap:8px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.25);border-radius:50px;padding:6px 14px 6px 6px;cursor:pointer;transition:background .2s}
 .user-pill:hover{background:rgba(201,168,76,.18)}
 .user-pill.visible{display:flex}
-.user-avatar{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--charcoal-dark)}
+.user-avatar{width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--charcoal-dark);text-transform:uppercase}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 2rem 80px;overflow:hidden}
 .hero-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hero-rings::before,.hero-rings::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.08)}
+.hero-rings::before,.hero-rings::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.07)}
 .hero-rings::before{width:700px;height:700px}
 .hero-rings::after{width:1100px;height:1100px}
-.hero-logo{width:140px;height:140px;object-fit:contain;margin-bottom:2rem;position:relative;z-index:1;animation:fadeUp .9s ease both}
-.hero-eyebrow{font-size:.75rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;position:relative;z-index:1;animation:fadeUp .9s .1s ease both}
-.hero-title{font-family:var(--serif);font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1;color:var(--white);margin-bottom:1.5rem;position:relative;z-index:1;animation:fadeUp .9s .2s ease both}
+.hero-logo{width:130px;height:130px;object-fit:contain;margin-bottom:2rem;position:relative;z-index:1;animation:fadeUp .9s ease both}
+.hero-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.18em;color:var(--gold);margin-bottom:1rem;position:relative;z-index:1;animation:fadeUp .9s .1s ease both;font-family:var(--mono)}
+.hero-title{font-family:var(--sans);font-size:clamp(3.5rem,9vw,7rem);font-weight:700;line-height:.95;color:var(--white);margin-bottom:1.5rem;position:relative;z-index:1;animation:fadeUp .9s .2s ease both;letter-spacing:-.03em}
 .hero-title span{color:var(--gold)}
-.hero-sub{font-size:1.1rem;font-weight:300;color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:2.5rem;position:relative;z-index:1;animation:fadeUp .9s .3s ease both}
+.hero-sub{font-size:1rem;font-weight:300;color:var(--muted);max-width:480px;line-height:1.8;margin-bottom:2.5rem;position:relative;z-index:1;animation:fadeUp .9s .3s ease both}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;animation:fadeUp .9s .4s ease both}
 
 /* BUTTONS */
-.btn-primary{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:14px 32px;border-radius:4px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s;display:inline-block}
+.btn-primary{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.85rem;font-weight:600;letter-spacing:.04em;padding:13px 30px;border-radius:4px;border:none;cursor:pointer;text-decoration:none;transition:background .2s,transform .1s;display:inline-block}
 .btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
-.btn-outline{background:transparent;color:var(--off-white);font-family:var(--sans);font-size:.9rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:14px 32px;border-radius:4px;border:1px solid rgba(244,242,238,.25);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block}
+.btn-outline{background:transparent;color:var(--off-white);font-family:var(--sans);font-size:.85rem;font-weight:500;letter-spacing:.04em;padding:13px 30px;border-radius:4px;border:1px solid rgba(244,242,238,.2);cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
 
 /* SECTIONS */
 section{position:relative;z-index:1;padding:100px 2rem}
 .container{max-width:1100px;margin:0 auto}
-.section-label{font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
-.section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:1rem}
-.section-divider{width:48px;height:2px;background:var(--gold);margin-bottom:2.5rem}
+.section-label{font-size:.68rem;font-weight:500;letter-spacing:.2em;color:var(--gold);margin-bottom:.8rem;font-family:var(--mono)}
+.section-title{font-family:var(--sans);font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:1rem;letter-spacing:-.02em}
+.section-divider{width:40px;height:2px;background:var(--gold);margin-bottom:2.5rem}
 
 /* ABOUT */
 #about{background:var(--charcoal)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.about-text p{font-size:1rem;font-weight:300;color:rgba(244,242,238,.75);line-height:1.8;margin-bottom:1.2rem}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.stat-card{background:var(--charcoal-dark);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:1.5rem;text-align:center}
-.stat-num{font-family:var(--serif);font-size:2.5rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:.5rem}
-.stat-label{font-size:.8rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.about-text p{font-size:.95rem;font-weight:300;color:rgba(244,242,238,.7);line-height:1.85;margin-bottom:1.2rem}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.stat-card{background:var(--charcoal-dark);border:1px solid rgba(201,168,76,.12);border-radius:8px;padding:1.5rem;text-align:center}
+.stat-num{font-family:var(--mono);font-size:1.8rem;font-weight:700;color:var(--gold);line-height:1;margin-bottom:.5rem}
+.stat-label{font-size:.72rem;font-weight:500;letter-spacing:.06em;color:var(--muted)}
 
 /* CONFERENCES */
 #conferences{background:var(--charcoal-dark)}
 .conf-card{background:var(--charcoal);border:1px solid rgba(201,168,76,.2);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
-.conf-info{padding:3rem;border-right:1px solid rgba(201,168,76,.12)}
-.conf-badge{display:inline-block;background:rgba(201,168,76,.15);color:var(--gold);font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:1.2rem}
-.conf-title{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--white);margin-bottom:.5rem;line-height:1.1}
-.conf-host{font-size:1rem;color:var(--gold-light);margin-bottom:1.5rem;font-weight:300}
-.conf-details{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem}
-.conf-details li{display:flex;align-items:center;gap:10px;font-size:.9rem;color:rgba(244,242,238,.7)}
-.conf-details li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.conf-info{padding:3rem;border-right:1px solid rgba(201,168,76,.1)}
+.conf-badge{display:inline-block;background:rgba(201,168,76,.15);color:var(--gold);font-size:.68rem;font-weight:600;letter-spacing:.12em;padding:4px 12px;border-radius:3px;margin-bottom:1.2rem;font-family:var(--mono)}
+.conf-title{font-family:var(--sans);font-size:2rem;font-weight:700;color:var(--white);margin-bottom:.4rem;line-height:1.1;letter-spacing:-.02em}
+.conf-host{font-size:.9rem;color:var(--gold-light);margin-bottom:1.5rem;font-weight:300}
+.conf-details{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
+.conf-details li{display:flex;align-items:center;gap:10px;font-size:.88rem;color:rgba(244,242,238,.65)}
+.conf-details li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
 .conf-register{padding:2rem 3rem;display:flex;flex-direction:column;justify-content:center;gap:.7rem}
-.conf-register h3{font-family:var(--serif);font-size:1.4rem;color:var(--white);margin-bottom:.3rem}
-.conf-register > p{font-size:.9rem;color:var(--muted);line-height:1.6;margin-bottom:.3rem}
+.conf-register h3{font-family:var(--sans);font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:.2rem;letter-spacing:-.01em}
+.conf-register > p{font-size:.88rem;color:var(--muted);line-height:1.6;margin-bottom:.3rem}
 
 /* FORMS */
 .reg-form{display:flex;flex-direction:column;gap:.75rem}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
 .form-group{display:flex;flex-direction:column;gap:4px}
-.form-group label{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.form-group input,.form-group select,.form-group textarea{background:var(--charcoal-dark);border:1px solid rgba(244,242,238,.12);border-radius:4px;padding:9px 12px;font-family:var(--sans);font-size:.88rem;color:var(--off-white);outline:none;transition:border-color .2s;width:100%}
+.form-group label{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--muted);font-family:var(--mono)}
+.form-group input,.form-group select,.form-group textarea{background:var(--charcoal-dark);border:1px solid rgba(244,242,238,.1);border-radius:4px;padding:9px 12px;font-family:var(--sans);font-size:.88rem;color:var(--off-white);outline:none;transition:border-color .2s;width:100%}
 .form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
 .form-group select option{background:var(--charcoal-dark)}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
 .form-group textarea{resize:vertical;min-height:70px}
-.form-submit{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:12px;border-radius:4px;border:none;cursor:pointer;transition:background .2s;margin-top:.2rem}
+.form-submit{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.85rem;font-weight:700;letter-spacing:.04em;padding:12px;border-radius:4px;border:none;cursor:pointer;transition:background .2s;margin-top:.2rem}
 .form-submit:hover{background:var(--gold-light)}
 .form-submit:disabled{opacity:.6;cursor:not-allowed}
-.form-success{display:none;text-align:center;padding:1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:var(--gold-light);font-size:.95rem;line-height:1.6}
+.form-success{display:none;text-align:center;padding:1.5rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:8px;color:var(--gold-light);font-size:.9rem;line-height:1.6}
+
+/* HISTORY */
+#history{background:var(--charcoal)}
+.timeline{display:flex;flex-direction:column}
+.tl-row{display:grid;grid-template-columns:64px 1fr;gap:0 2rem;align-items:stretch}
+.tl-year{text-align:right;padding-top:3px;font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--gold);white-space:nowrap}
+.tl-events{border-left:2px solid rgba(201,168,76,.2);padding-left:2rem;padding-bottom:2.5rem;display:flex;flex-direction:column;gap:1.1rem}
+.tl-events:last-child{padding-bottom:.5rem}
+.tl-event{position:relative}
+.tl-dot{position:absolute;left:-2.55rem;top:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);border:2px solid var(--charcoal)}
+.tl-dot.upcoming{background:transparent;border-color:var(--gold-light);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.tl-host{font-size:.68rem;font-weight:500;letter-spacing:.12em;color:var(--muted);margin-bottom:.2rem;font-family:var(--mono)}
+.tl-conf{font-size:1.2rem;font-weight:600;color:var(--white);letter-spacing:-.01em}
+.tl-badge{font-size:.65rem;font-weight:600;letter-spacing:.1em;color:var(--gold);background:rgba(201,168,76,.1);padding:2px 9px;border-radius:3px;vertical-align:middle;margin-left:.5rem;font-family:var(--mono)}
 
 /* INSTAGRAM */
-#instagram{background:var(--charcoal)}
-.insta-placeholder{border:1px dashed rgba(201,168,76,.3);border-radius:12px;padding:4rem 2rem;text-align:center}
-.insta-placeholder p{font-size:.95rem;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto}
-.insta-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
+#instagram{background:var(--charcoal-dark)}
+.insta-wrap{display:flex;justify-content:center}
+.insta-wrap .instagram-media{border-radius:10px!important;overflow:hidden}
 
 /* FOOTER */
-footer{background:rgba(0,0,0,.4);border-top:1px solid rgba(201,168,76,.12);padding:3rem 2rem;text-align:center;position:relative;z-index:1}
-footer img{height:50px;margin-bottom:1rem;opacity:.7}
-footer p{font-size:.82rem;color:var(--muted);line-height:1.7}
+footer{background:rgba(0,0,0,.4);border-top:1px solid rgba(201,168,76,.1);padding:3rem 2rem;text-align:center;position:relative;z-index:1}
+footer img{height:46px;margin-bottom:1rem;opacity:.6}
+footer p{font-size:.8rem;color:var(--muted);line-height:1.7}
 footer a{color:var(--gold);text-decoration:none}
 
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,12,15,.88);z-index:200;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(4px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--charcoal);border:1px solid rgba(201,168,76,.2);border-radius:12px;width:100%;max-width:460px;padding:2.5rem;position:relative;animation:fadeUp .3s ease both;max-height:90vh;overflow-y:auto}
+.modal{background:var(--charcoal);border:1px solid rgba(201,168,76,.18);border-radius:12px;width:100%;max-width:460px;padding:2.5rem;position:relative;animation:fadeUp .3s ease both;max-height:90vh;overflow-y:auto}
 .modal-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;line-height:1}
 .modal-close:hover{color:var(--off-white)}
-.modal h2{font-family:var(--serif);font-size:1.6rem;color:var(--white);margin-bottom:.3rem}
+.modal h2{font-family:var(--sans);font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:.3rem;letter-spacing:-.02em}
 .modal-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.5}
-.modal-tabs{display:flex;margin-bottom:1.8rem;border-bottom:1px solid rgba(244,242,238,.1)}
+.modal-tabs{display:flex;margin-bottom:1.8rem;border-bottom:1px solid rgba(244,242,238,.08)}
 .tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:8px 20px;font-family:var(--sans);font-size:.85rem;font-weight:500;color:var(--muted);cursor:pointer;transition:color .2s,border-color .2s;margin-bottom:-1px}
 .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
 .tab-panel{display:none}
 .tab-panel.active{display:block}
 .auth-form{display:flex;flex-direction:column;gap:.75rem}
-.auth-form input,.auth-form select{background:var(--charcoal-dark);border:1px solid rgba(244,242,238,.12);border-radius:4px;padding:11px 14px;font-family:var(--sans);font-size:.9rem;color:var(--off-white);outline:none;width:100%;transition:border-color .2s}
+.auth-form input,.auth-form select{background:var(--charcoal-dark);border:1px solid rgba(244,242,238,.1);border-radius:4px;padding:11px 14px;font-family:var(--sans);font-size:.9rem;color:var(--off-white);outline:none;width:100%;transition:border-color .2s}
 .auth-form input::placeholder{color:var(--muted)}
 .auth-form input:focus,.auth-form select:focus{border-color:var(--gold)}
 .auth-form select option{background:var(--charcoal-dark)}
 .auth-row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.field-label{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;display:block}
-.auth-btn{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.9rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:13px;border-radius:4px;border:none;cursor:pointer;transition:background .2s;width:100%;margin-top:.3rem}
+.field-label{font-size:.68rem;font-weight:600;letter-spacing:.06em;color:var(--muted);margin-bottom:3px;display:block;font-family:var(--mono)}
+.auth-btn{background:var(--gold);color:var(--charcoal-dark);font-family:var(--sans);font-size:.9rem;font-weight:700;letter-spacing:.03em;padding:13px;border-radius:4px;border:none;cursor:pointer;transition:background .2s;width:100%;margin-top:.3rem}
 .auth-btn:hover{background:var(--gold-light)}
 .auth-btn:disabled{opacity:.6;cursor:not-allowed}
 .auth-note{font-size:.78rem;color:var(--muted);text-align:center;line-height:1.5;margin-top:.4rem}
 .auth-note a{color:var(--gold);cursor:pointer;text-decoration:none}
-.auth-error{display:none;font-size:.82rem;color:#e07070;background:rgba(224,112,112,.08);border:1px solid rgba(224,112,112,.2);border-radius:4px;padding:9px 12px}
+.auth-error{display:none;font-size:.82rem;color:#e07070;background:rgba(224,112,112,.08);border:1px solid rgba(224,112,112,.18);border-radius:4px;padding:9px 12px}
 .auth-error.show{display:block}
-.auth-success{display:none;font-size:.85rem;color:var(--gold-light);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:4px;padding:9px 12px;text-align:center;line-height:1.5}
+.auth-success{display:none;font-size:.85rem;color:var(--gold-light);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:9px 12px;text-align:center;line-height:1.5}
 .auth-success.show{display:block}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:900px){
   nav{padding:0 1.5rem}
@@ -152,12 +165,12 @@ footer a{color:var(--gold);text-decoration:none}
   .hamburger{display:flex}
   .about-grid{grid-template-columns:1fr;gap:2.5rem}
   .conf-card{grid-template-columns:1fr}
-  .conf-info{border-right:none;border-bottom:1px solid rgba(201,168,76,.12)}
+  .conf-info{border-right:none;border-bottom:1px solid rgba(201,168,76,.1)}
   .form-row{grid-template-columns:1fr}
   .auth-row{grid-template-columns:1fr}
 }
 @media(max-width:600px){
-  .hero-title{font-size:2.6rem}
+  .hero-title{font-size:3rem}
   section{padding:70px 1.2rem}
   .conf-info,.conf-register{padding:2rem 1.5rem}
   .modal{padding:1.8rem}
@@ -169,44 +182,44 @@ footer a{color:var(--gold);text-decoration:none}
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <img src="logo.png" alt="Omni MUN logo" />
-    <span class="nav-wordmark">Omni MUN</span>
+    <img src="logo.png" alt="omni mun logo" />
+    <span class="nav-wordmark">omni mun</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#conferences">Conferences</a></li>
-    <li><a href="#history">History</a></li>
-    <li><a href="#instagram">Updates</a></li>
-    <li><a href="#" id="nav-signin-btn" class="nav-cta">Sign In</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#conferences">conferences</a></li>
+    <li><a href="#history">history</a></li>
+    <li><a href="#instagram">updates</a></li>
+    <li><a href="#" id="nav-signin-btn" class="nav-cta">sign in</a></li>
   </ul>
   <div class="user-pill" id="user-pill">
     <div class="user-avatar" id="user-avatar">?</div>
     <span style="font-size:.82rem;font-weight:500;color:var(--off-white)" id="user-name-pill"></span>
     <span style="color:var(--muted);font-size:.75rem;margin-left:2px">▾</span>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu">
+  <button class="hamburger" id="hamburger" aria-label="open menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
-  <a href="#about" onclick="closeMobile()">About</a>
-  <a href="#conferences" onclick="closeMobile()">Conferences</a>
-  <a href="#history" onclick="closeMobile()">History</a>
-  <a href="#instagram" onclick="closeMobile()">Updates</a>
-  <a href="#" onclick="closeMobile();openAuthModal('signin')">Sign In / Register</a>
+  <a href="#about" onclick="closeMobile()">about</a>
+  <a href="#conferences" onclick="closeMobile()">conferences</a>
+  <a href="#history" onclick="closeMobile()">history</a>
+  <a href="#instagram" onclick="closeMobile()">updates</a>
+  <a href="#" onclick="closeMobile();openAuthModal('signin')">sign in / register</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-rings"></div>
-  <img src="logo.png" alt="Omni MUN logo" class="hero-logo" />
-  <p class="hero-eyebrow">Northern California's Independent Delegation</p>
-  <h1 class="hero-title">Omni<br/><span>MUN</span></h1>
-  <p class="hero-sub">Compete at the highest level. Build lifelong skills in diplomacy, public speaking, and global leadership.</p>
+  <img src="logo.png" alt="omni mun logo" class="hero-logo" />
+  <p class="hero-eyebrow">northern california's independent delegation</p>
+  <h1 class="hero-title">omni<br/><span>mun</span></h1>
+  <p class="hero-sub">compete at the highest level. build real skills in diplomacy, public speaking, and global leadership.</p>
   <div class="hero-btns">
-    <a href="#conferences" class="btn-primary">View Conferences</a>
-    <a href="#about" class="btn-outline">About Us</a>
+    <a href="#conferences" class="btn-primary">view conferences</a>
+    <a href="#about" class="btn-outline">about us</a>
   </div>
 </section>
 
@@ -215,18 +228,18 @@ footer a{color:var(--gold);text-decoration:none}
   <div class="container">
     <div class="about-grid">
       <div class="about-text">
-        <p class="section-label">Who We Are</p>
-        <h2 class="section-title">An independent delegation built for NorCal delegates.</h2>
+        <p class="section-label">who we are</p>
+        <h2 class="section-title">an independent delegation built for norcal delegates.</h2>
         <div class="section-divider"></div>
-        <p>Omni MUN is a student-run independent delegation based in Northern California. We send delegates to top-tier Model UN conferences up and down the state, competing against the best delegations in the country.</p>
-        <p>Whether you're a first-time delegate or a seasoned chair, Omni MUN gives you the structure, coaching, and community to perform your best on the floor.</p>
-        <a href="#conferences" class="btn-primary" style="margin-top:1.2rem">Register for a Conference</a>
+        <p>omni mun is a student-run independent delegation based in northern california. we send delegates to top-tier model un conferences up and down the state, competing against the best delegations in the country.</p>
+        <p>whether you're a first-time delegate or a seasoned chair, omni mun gives you the structure, coaching, and community to perform your best on the floor.</p>
+        <a href="#conferences" class="btn-primary" style="margin-top:1.2rem">register for a conference</a>
       </div>
       <div class="about-stats">
-        <div class="stat-card"><div class="stat-num">NorCal</div><div class="stat-label">Home Region</div></div>
-        <div class="stat-card"><div class="stat-num">Indep.</div><div class="stat-label">Delegation</div></div>
-        <div class="stat-card"><div class="stat-num">Top</div><div class="stat-label">Conferences</div></div>
-        <div class="stat-card"><div class="stat-num">All</div><div class="stat-label">Levels Welcome</div></div>
+        <div class="stat-card"><div class="stat-num">norcal</div><div class="stat-label">home region</div></div>
+        <div class="stat-card"><div class="stat-num">indep.</div><div class="stat-label">delegation</div></div>
+        <div class="stat-card"><div class="stat-num">top</div><div class="stat-label">conferences</div></div>
+        <div class="stat-card"><div class="stat-num">all</div><div class="stat-label">levels welcome</div></div>
       </div>
     </div>
   </div>
@@ -235,31 +248,31 @@ footer a{color:var(--gold);text-decoration:none}
 <!-- CONFERENCES -->
 <section id="conferences">
   <div class="container">
-    <p class="section-label">Upcoming Conferences</p>
-    <h2 class="section-title">Register for a Conference</h2>
+    <p class="section-label">upcoming conferences</p>
+    <h2 class="section-title">register for a conference</h2>
     <div class="section-divider"></div>
     <div class="conf-card">
       <div class="conf-info">
-        <span class="conf-badge">Now Open</span>
-        <h3 class="conf-title">SMUNC XXX</h3>
-        <p class="conf-host">Stanford University · Stanford, CA</p>
+        <span class="conf-badge">now open</span>
+        <h3 class="conf-title">smunc xxx</h3>
+        <p class="conf-host">stanford university · stanford, ca</p>
         <ul class="conf-details">
-          <li>Hosted at Stanford University</li>
-          <li>Open to all experience levels</li>
-          <li>Competitive awards in every committee</li>
-          <li>Omni MUN delegation coaching included</li>
+          <li>hosted at stanford university</li>
+          <li>open to all experience levels</li>
+          <li>competitive awards in every committee</li>
+          <li>omni mun delegation coaching included</li>
         </ul>
-        <p style="font-size:.8rem;color:var(--muted)">Fill out the registration form to secure your spot with Omni MUN's delegation at SMUNC XXX.</p>
+        <p style="font-size:.8rem;color:var(--muted)">fill out the registration form to secure your spot with omni mun's delegation at smunc xxx.</p>
       </div>
       <div class="conf-register">
-        <h3>Join Omni MUN at SMUNC XXX</h3>
+        <h3>join omni mun at smunc xxx</h3>
 
         <!-- logged out state -->
         <div id="reg-logged-out">
-          <p>Create a free account to register for conferences and track your delegation status.</p>
+          <p>create a free account to register for conferences and track your delegation status.</p>
           <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.8rem">
-            <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.82rem;padding:11px 22px">Create Account</button>
-            <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.82rem;padding:11px 22px">Sign In</button>
+            <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.82rem;padding:11px 22px">create account</button>
+            <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.82rem;padding:11px 22px">sign in</button>
           </div>
         </div>
 
@@ -268,73 +281,69 @@ footer a{color:var(--gold);text-decoration:none}
           <div class="auth-error" id="reg-error"></div>
           <div class="form-row">
             <div class="form-group">
-              <label for="r-exp">Experience Level</label>
+              <label for="r-exp">experience level</label>
               <select id="r-exp">
-                <option value="">Select...</option>
-                <option>First conference</option>
+                <option value="">select...</option>
+                <option>first conference</option>
                 <option>1-2 conferences</option>
                 <option>3-5 conferences</option>
                 <option>6+ conferences</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="r-role">Preferred Role</label>
+              <label for="r-role">preferred role</label>
               <select id="r-role">
-                <option value="">Select...</option>
-                <option>Delegate</option>
-                <option>Chair</option>
-                <option>Either</option>
+                <option value="">select...</option>
+                <option>delegate</option>
+                <option>chair</option>
+                <option>either</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label for="r-committees">Committee preferences (optional)</label>
-            <textarea id="r-committees" placeholder="Any committees you're aiming for..."></textarea>
+            <label for="r-committees">committee preferences (optional)</label>
+            <textarea id="r-committees" placeholder="any committees you're aiming for..."></textarea>
           </div>
-          <button type="submit" class="form-submit" id="reg-submit">Submit Registration &rarr;</button>
+          <button type="submit" class="form-submit" id="reg-submit">submit registration →</button>
         </form>
 
         <div class="form-success" id="form-success">
-          &#10022; Registration received! We'll be in touch with confirmation and next steps. Welcome to Omni MUN.
+          ✦ registration received! we'll be in touch with confirmation and next steps. welcome to omni mun.
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONFERENCE HISTORY -->
-<section id="history" style="background:var(--charcoal)">
+<!-- HISTORY -->
+<section id="history">
   <div class="container">
-    <p class="section-label">Our Track Record</p>
-    <h2 class="section-title">Conference History</h2>
+    <p class="section-label">our track record</p>
+    <h2 class="section-title">conference history</h2>
     <div class="section-divider"></div>
-    <div style="display:flex;flex-direction:column;gap:0">
-      <div style="display:grid;grid-template-columns:80px 1fr;gap:0 2rem;align-items:stretch">
-        <!-- 2025 -->
-        <div style="text-align:right;padding-top:4px">
-          <span style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gold)">2025</span>
-        </div>
-        <div style="border-left:2px solid rgba(201,168,76,.25);padding-left:2rem;padding-bottom:2.5rem;display:flex;flex-direction:column;gap:1rem">
-          <div style="position:relative">
-            <div style="position:absolute;left:-2.5rem;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--charcoal)"></div>
-            <p style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">UC Los Angeles</p>
-            <p style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--white)">BruinMUN</p>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-year">2025</div>
+        <div class="tl-events">
+          <div class="tl-event">
+            <div class="tl-dot"></div>
+            <p class="tl-host">uc los angeles</p>
+            <p class="tl-conf">bruinmun</p>
           </div>
-          <div style="position:relative">
-            <div style="position:absolute;left:-2.5rem;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--charcoal)"></div>
-            <p style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">UC Berkeley</p>
-            <p style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--white)">BearMUN</p>
+          <div class="tl-event">
+            <div class="tl-dot"></div>
+            <p class="tl-host">uc berkeley</p>
+            <p class="tl-conf">bearmun</p>
           </div>
         </div>
-        <!-- 2026 -->
-        <div style="text-align:right;padding-top:4px">
-          <span style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gold)">2026</span>
-        </div>
-        <div style="border-left:2px solid rgba(201,168,76,.25);padding-left:2rem;padding-bottom:1rem;display:flex;flex-direction:column;gap:1rem">
-          <div style="position:relative">
-            <div style="position:absolute;left:-2.5rem;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold-light);border:2px solid var(--charcoal);box-shadow:0 0 0 3px rgba(201,168,76,.2)"></div>
-            <p style="font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem">UC Santa Barbara</p>
-            <p style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--white)">GauchoMUN <span style="font-size:.8rem;font-weight:400;color:var(--gold);background:rgba(201,168,76,.12);padding:2px 10px;border-radius:3px;vertical-align:middle">Upcoming</span></p>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2026</div>
+        <div class="tl-events">
+          <div class="tl-event">
+            <div class="tl-dot upcoming"></div>
+            <p class="tl-host">uc santa barbara</p>
+            <p class="tl-conf">gauchomun <span class="tl-badge">upcoming</span></p>
           </div>
         </div>
       </div>
@@ -343,39 +352,39 @@ footer a{color:var(--gold);text-decoration:none}
 </section>
 
 <!-- INSTAGRAM -->
-<section id="instagram">
+<section id="instagram" style="background:var(--charcoal)">
   <div class="container">
-    <p class="section-label">Latest Updates</p>
-    <h2 class="section-title">Follow @omni.mun</h2>
+    <p class="section-label">latest updates</p>
+    <h2 class="section-title">follow @omni.mun</h2>
     <div class="section-divider"></div>
-    <div style="display:flex;justify-content:center">
-      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px)"><div style="padding:16px"><a href="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&amp;utm_campaign=loading" style="background:#FFFFFF;line-height:0;padding:0 0;text-align:center;text-decoration:none;width:100%" target="_blank"><div style="display:flex;flex-direction:row;align-items:center"><div style="background-color:#F4F4F4;border-radius:50%;flex-grow:0;height:40px;margin-right:14px;width:40px"></div><div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center"><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;margin-bottom:6px;width:100px"></div><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;width:60px"></div></div></div><div style="padding:19% 0"></div><div style="display:block;height:50px;margin:0 auto 12px;width:50px"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top:8px"><div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-style:normal;font-weight:550;line-height:18px">View this post on Instagram</div></div><div style="padding:12.5% 0"></div><div style="display:flex;flex-direction:row;margin-bottom:14px;align-items:center"><div><div style="background-color:#F4F4F4;border-radius:50%;height:12.5px;width:12.5px;transform:translateX(0px) translateY(7px)"></div><div style="background-color:#F4F4F4;height:12.5px;transform:rotate(-45deg) translateX(3px) translateY(1px);width:12.5px;flex-grow:0;margin-right:14px;margin-left:2px"></div><div style="background-color:#F4F4F4;border-radius:50%;height:12.5px;width:12.5px;transform:translateX(9px) translateY(-18px)"></div></div><div style="margin-left:8px"><div style="background-color:#F4F4F4;border-radius:50%;flex-grow:0;height:20px;width:20px"></div><div style="width:0;height:0;border-top:2px solid transparent;border-left:6px solid #f4f4f4;border-bottom:2px solid transparent;transform:translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left:auto"><div style="width:0px;border-top:8px solid #F4F4F4;border-right:8px solid transparent;transform:translateY(16px)"></div><div style="background-color:#F4F4F4;flex-grow:0;height:12px;width:16px;transform:translateY(-4px)"></div><div style="width:0;height:0;border-top:8px solid #F4F4F4;border-left:8px solid transparent;transform:translateY(-4px) translateX(8px)"></div></div></div><div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;margin-bottom:24px"><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;margin-bottom:6px;width:224px"></div><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;width:144px"></div></div></a><p style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:14px;line-height:17px;margin-bottom:0;margin-top:8px;overflow:hidden;padding:8px 0 7px;text-align:center;text-overflow:ellipsis;white-space:nowrap"><a href="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&amp;utm_campaign=loading" style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:14px;font-style:normal;font-weight:normal;line-height:17px;text-decoration:none" target="_blank">A post shared by omni mun (@omni.mun)</a></p></div></blockquote>
-      <script async src="//www.instagram.com/embed.js"><\/script>
+    <div class="insta-wrap">
+      <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&utm_campaign=loading" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:calc(100% - 2px)"><div style="padding:16px"><a href="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&utm_campaign=loading" style="background:#FFFFFF;line-height:0;padding:0 0;text-align:center;text-decoration:none;width:100%" target="_blank"><div style="display:flex;flex-direction:row;align-items:center"><div style="background-color:#F4F4F4;border-radius:50%;flex-grow:0;height:40px;margin-right:14px;width:40px"></div><div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center"><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;margin-bottom:6px;width:100px"></div><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;width:60px"></div></div></div><div style="padding:19% 0"></div><div style="display:block;height:50px;margin:0 auto 12px;width:50px"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top:8px"><div style="color:#3897f0;font-family:Arial,sans-serif;font-size:14px;font-style:normal;font-weight:550;line-height:18px">View this post on Instagram</div></div><div style="padding:12.5% 0"></div><div style="display:flex;flex-direction:row;margin-bottom:14px;align-items:center"><div><div style="background-color:#F4F4F4;border-radius:50%;height:12.5px;width:12.5px;transform:translateX(0px) translateY(7px)"></div><div style="background-color:#F4F4F4;height:12.5px;transform:rotate(-45deg) translateX(3px) translateY(1px);width:12.5px;flex-grow:0;margin-right:14px;margin-left:2px"></div><div style="background-color:#F4F4F4;border-radius:50%;height:12.5px;width:12.5px;transform:translateX(9px) translateY(-18px)"></div></div><div style="margin-left:8px"><div style="background-color:#F4F4F4;border-radius:50%;flex-grow:0;height:20px;width:20px"></div><div style="width:0;height:0;border-top:2px solid transparent;border-left:6px solid #f4f4f4;border-bottom:2px solid transparent;transform:translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left:auto"><div style="width:0px;border-top:8px solid #F4F4F4;border-right:8px solid transparent;transform:translateY(16px)"></div><div style="background-color:#F4F4F4;flex-grow:0;height:12px;width:16px;transform:translateY(-4px)"></div><div style="width:0;height:0;border-top:8px solid #F4F4F4;border-left:8px solid transparent;transform:translateY(-4px) translateX(8px)"></div></div></div><div style="display:flex;flex-direction:column;flex-grow:1;justify-content:center;margin-bottom:24px"><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;margin-bottom:6px;width:224px"></div><div style="background-color:#F4F4F4;border-radius:4px;flex-grow:0;height:14px;width:144px"></div></div></a><p style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:14px;line-height:17px;margin-bottom:0;margin-top:8px;overflow:hidden;padding:8px 0 7px;text-align:center;text-overflow:ellipsis;white-space:nowrap"><a href="https://www.instagram.com/p/DQ7WEM2kn39/?utm_source=ig_embed&utm_campaign=loading" style="color:#c9c8cd;font-family:Arial,sans-serif;font-size:14px;font-style:normal;font-weight:normal;line-height:17px;text-decoration:none" target="_blank">A post shared by omni mun (@omni.mun)</a></p></div></blockquote>
+      <script async src="//www.instagram.com/embed.js"></script>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <img src="logo.png" alt="Omni MUN" />
-  <p>Omni MUN &mdash; NorCal Independent Delegation</p>
+  <img src="logo.png" alt="omni mun" />
+  <p>omni mun — norcal independent delegation</p>
   <p style="margin-top:.4rem">
-    <a href="https://instagram.com/omni_mun" target="_blank">Instagram</a>
-    &nbsp;&middot;&nbsp;
-    <a href="mailto:omnimun@gmail.com">Contact Us</a>
+    <a href="https://instagram.com/omni.mun" target="_blank">instagram</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:omnimun@gmail.com">contact us</a>
   </p>
-  <p style="margin-top:1.2rem;font-size:.75rem;opacity:.4">&copy; 2025 Omni MUN. All rights reserved.</p>
+  <p style="margin-top:1.2rem;font-size:.72rem;opacity:.35">© 2025 omni mun. all rights reserved.</p>
 </footer>
 
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="auth-modal">
   <div class="modal">
     <button class="modal-close" id="modal-close-btn">&#215;</button>
-    <h2>Welcome</h2>
-    <p class="modal-sub">Sign in or create your Omni MUN account.</p>
+    <h2>welcome</h2>
+    <p class="modal-sub">sign in or create your omni mun account.</p>
     <div class="modal-tabs">
-      <button class="tab-btn active" data-tab="signin">Sign In</button>
-      <button class="tab-btn" data-tab="signup">Create Account</button>
+      <button class="tab-btn active" data-tab="signin">sign in</button>
+      <button class="tab-btn" data-tab="signup">create account</button>
     </div>
 
     <!-- SIGN IN -->
@@ -383,10 +392,10 @@ footer a{color:var(--gold);text-decoration:none}
       <div class="auth-form">
         <div class="auth-error" id="signin-error"></div>
         <div class="auth-success" id="signin-success"></div>
-        <input type="email" id="si-email" placeholder="Email address" autocomplete="email" />
-        <input type="password" id="si-password" placeholder="Password" autocomplete="current-password" />
-        <button class="auth-btn" id="signin-btn">Sign In</button>
-        <p class="auth-note">No account? <a onclick="switchTab('signup')">Create one free</a></p>
+        <input type="email" id="si-email" placeholder="email address" autocomplete="email" />
+        <input type="password" id="si-password" placeholder="password" autocomplete="current-password" />
+        <button class="auth-btn" id="signin-btn">sign in</button>
+        <p class="auth-note">no account? <a onclick="switchTab('signup')">create one free</a></p>
       </div>
     </div>
 
@@ -397,44 +406,44 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="auth-success" id="signup-success"></div>
         <div class="auth-row">
           <div>
-            <span class="field-label">First Name</span>
-            <input type="text" id="su-first" placeholder="Ada" />
+            <span class="field-label">first name</span>
+            <input type="text" id="su-first" placeholder="ada" />
           </div>
           <div>
-            <span class="field-label">Last Name</span>
-            <input type="text" id="su-last" placeholder="Lovelace" />
+            <span class="field-label">last name</span>
+            <input type="text" id="su-last" placeholder="lovelace" />
           </div>
         </div>
         <div>
-          <span class="field-label">Grade</span>
+          <span class="field-label">grade</span>
           <select id="su-grade">
-            <option value="">Select grade...</option>
+            <option value="">select grade...</option>
             <option>8th</option><option>9th</option><option>10th</option>
-            <option>11th</option><option>12th</option><option>College</option>
+            <option>11th</option><option>12th</option><option>college</option>
           </select>
         </div>
         <div>
-          <span class="field-label">School</span>
-          <input type="text" id="su-school" placeholder="Your school name" />
+          <span class="field-label">school</span>
+          <input type="text" id="su-school" placeholder="your school name" />
         </div>
         <div>
-          <span class="field-label">Email</span>
+          <span class="field-label">email</span>
           <input type="email" id="su-email" placeholder="you@email.com" autocomplete="email" />
         </div>
         <div>
-          <span class="field-label">Phone Number</span>
+          <span class="field-label">phone number</span>
           <input type="tel" id="su-phone" placeholder="(555) 000-0000" />
         </div>
         <div>
-          <span class="field-label">Password</span>
-          <input type="password" id="su-password" placeholder="At least 6 characters" autocomplete="new-password" />
+          <span class="field-label">password</span>
+          <input type="password" id="su-password" placeholder="at least 6 characters" autocomplete="new-password" />
         </div>
         <div>
-          <span class="field-label">Confirm Password</span>
-          <input type="password" id="su-confirm" placeholder="Repeat password" />
+          <span class="field-label">confirm password</span>
+          <input type="password" id="su-confirm" placeholder="repeat password" />
         </div>
-        <button class="auth-btn" id="signup-btn">Create Account</button>
-        <p class="auth-note">Already have an account? <a onclick="switchTab('signin')">Sign in</a></p>
+        <button class="auth-btn" id="signup-btn">create account</button>
+        <p class="auth-note">already have an account? <a onclick="switchTab('signin')">sign in</a></p>
       </div>
     </div>
   </div>
@@ -470,7 +479,7 @@ async function updateUI() {
     signinBtn.style.display = 'none';
     pill.classList.add('visible');
     avatarEl.textContent = initials;
-    nameEl.textContent = fullName.split(' ')[0];
+    nameEl.textContent = fullName.split(' ')[0].toLowerCase();
     regOut.style.display = 'none';
     const submitted = localStorage.getItem('om_reg_smuncxxx_' + currentUser.id);
     if (submitted) {
@@ -508,25 +517,23 @@ document.getElementById('modal-close-btn').addEventListener('click', closeAuthMo
 document.getElementById('auth-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closeAuthModal(); });
 document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
 document.getElementById('user-pill').addEventListener('click', async () => {
-  if (confirm('Sign out of Omni MUN?')) await sb.auth.signOut();
+  if (confirm('sign out of omni mun?')) await sb.auth.signOut();
 });
 
-// Sign In
 document.getElementById('signin-btn').addEventListener('click', async () => {
   const email = document.getElementById('si-email').value.trim();
   const pw = document.getElementById('si-password').value;
   const errEl = document.getElementById('signin-error');
   const btn = document.getElementById('signin-btn');
   errEl.classList.remove('show');
-  if (!email || !pw) { errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return; }
-  btn.disabled = true; btn.textContent = 'Signing in...';
+  if (!email || !pw) { errEl.textContent = 'please fill in all fields.'; errEl.classList.add('show'); return; }
+  btn.disabled = true; btn.textContent = 'signing in...';
   const { error } = await sb.auth.signInWithPassword({ email, password: pw });
-  btn.disabled = false; btn.textContent = 'Sign In';
+  btn.disabled = false; btn.textContent = 'sign in';
   if (error) { errEl.textContent = error.message; errEl.classList.add('show'); return; }
   closeAuthModal();
 });
 
-// Sign Up
 document.getElementById('signup-btn').addEventListener('click', async () => {
   const first = document.getElementById('su-first').value.trim();
   const last = document.getElementById('su-last').value.trim();
@@ -541,32 +548,31 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
   const btn = document.getElementById('signup-btn');
   errEl.classList.remove('show'); succEl.classList.remove('show');
   if (!first || !last || !grade || !school || !email || !phone || !pw) {
-    errEl.textContent = 'Please fill in all fields.'; errEl.classList.add('show'); return;
+    errEl.textContent = 'please fill in all fields.'; errEl.classList.add('show'); return;
   }
-  if (pw !== pw2) { errEl.textContent = 'Passwords do not match.'; errEl.classList.add('show'); return; }
-  if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('show'); return; }
-  btn.disabled = true; btn.textContent = 'Creating account...';
+  if (pw !== pw2) { errEl.textContent = 'passwords do not match.'; errEl.classList.add('show'); return; }
+  if (pw.length < 6) { errEl.textContent = 'password must be at least 6 characters.'; errEl.classList.add('show'); return; }
+  btn.disabled = true; btn.textContent = 'creating account...';
   const { data, error } = await sb.auth.signUp({
     email, password: pw,
     options: { data: { full_name: first + ' ' + last, grade, school, phone } }
   });
   if (error) {
-    btn.disabled = false; btn.textContent = 'Create Account';
+    btn.disabled = false; btn.textContent = 'create account';
     errEl.textContent = error.message; errEl.classList.add('show'); return;
   }
   if (data.user) {
     await sb.from('profiles').upsert({ id: data.user.id, full_name: first + ' ' + last, grade, school, phone });
   }
-  btn.disabled = false; btn.textContent = 'Create Account';
+  btn.disabled = false; btn.textContent = 'create account';
   if (data.session) {
     closeAuthModal();
   } else {
-    succEl.textContent = 'Check your email to confirm your account, then sign in.';
+    succEl.textContent = 'check your email to confirm your account, then sign in.';
     succEl.classList.add('show');
   }
 });
 
-// Conference Registration
 document.getElementById('reg-form').addEventListener('submit', async e => {
   e.preventDefault();
   if (!currentUser) return;
@@ -576,20 +582,19 @@ document.getElementById('reg-form').addEventListener('submit', async e => {
   const errEl = document.getElementById('reg-error');
   const btn = document.getElementById('reg-submit');
   errEl.classList.remove('show');
-  if (!exp || !role) { errEl.textContent = 'Please fill in required fields.'; errEl.classList.add('show'); return; }
-  btn.disabled = true; btn.textContent = 'Submitting...';
+  if (!exp || !role) { errEl.textContent = 'please fill in required fields.'; errEl.classList.add('show'); return; }
+  btn.disabled = true; btn.textContent = 'submitting...';
   await sb.from('registrations').insert({ user_id: currentUser.id, conference: 'SMUNC XXX', experience: exp, preferred_role: role, committee_notes: committees });
-  btn.disabled = false; btn.textContent = 'Submit Registration';
+  btn.disabled = false; btn.textContent = 'submit registration';
   localStorage.setItem('om_reg_smuncxxx_' + currentUser.id, '1');
   document.getElementById('reg-form').style.display = 'none';
   document.getElementById('form-success').style.display = 'block';
 });
 
-// Hamburger
 document.getElementById('hamburger').addEventListener('click', () => {
   document.getElementById('mobile-menu').classList.toggle('open');
 });
 function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
-<\/script>
+</script>
 </body>
 </html>
