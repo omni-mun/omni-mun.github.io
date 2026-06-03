@@ -157,6 +157,13 @@ footer a{color:var(--gold);text-decoration:none}
 .auth-success{display:none;font-size:.85rem;color:var(--gold-light);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:4px;padding:9px 12px;text-align:center;line-height:1.5}
 .auth-success.show{display:block}
 
+/* GOOGLE BUTTON */
+.btn-google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:12px;background:#fff;color:#1f1f1f;font-family:var(--sans);font-size:.9rem;font-weight:600;border:none;border-radius:4px;cursor:pointer;transition:background .15s;margin-bottom:.6rem;text-transform:none}
+.btn-google:hover{background:#f0f0f0}
+.btn-google svg{flex-shrink:0}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:.1rem 0 .6rem;color:var(--muted);font-size:.75rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(244,242,238,.08)}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 @media(max-width:900px){
@@ -376,6 +383,34 @@ footer a{color:var(--gold);text-decoration:none}
   <p style="margin-top:1.2rem;font-size:.72rem;opacity:.35">© 2025 omni mun. all rights reserved.</p>
 </footer>
 
+<!-- PROFILE COMPLETION MODAL -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal">
+    <h2>one more thing</h2>
+    <p class="modal-sub">we just need a few more details to complete your omni mun profile.</p>
+    <div class="auth-form" id="profile-form">
+      <div class="auth-error" id="profile-error"></div>
+      <div>
+        <span class="field-label">grade</span>
+        <select id="p-grade">
+          <option value="">select grade...</option>
+          <option>8th</option><option>9th</option><option>10th</option>
+          <option>11th</option><option>12th</option><option>college</option>
+        </select>
+      </div>
+      <div>
+        <span class="field-label">school</span>
+        <input type="text" id="p-school" placeholder="your school name" />
+      </div>
+      <div>
+        <span class="field-label">phone number</span>
+        <input type="tel" id="p-phone" placeholder="(555) 000-0000" />
+      </div>
+      <button class="auth-btn" id="profile-save-btn">save and continue</button>
+    </div>
+  </div>
+</div>
+
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="auth-modal">
   <div class="modal">
@@ -390,6 +425,11 @@ footer a{color:var(--gold);text-decoration:none}
     <!-- SIGN IN -->
     <div class="tab-panel active" id="tab-signin">
       <div class="auth-form">
+        <button class="btn-google" id="google-signin-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          continue with google
+        </button>
+        <div class="auth-divider">or sign in with email</div>
         <div class="auth-error" id="signin-error"></div>
         <div class="auth-success" id="signin-success"></div>
         <input type="email" id="si-email" placeholder="email address" autocomplete="email" />
@@ -402,16 +442,21 @@ footer a{color:var(--gold);text-decoration:none}
     <!-- SIGN UP -->
     <div class="tab-panel" id="tab-signup">
       <div class="auth-form">
+        <button class="btn-google" id="google-signup-btn">
+          <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
+          continue with google
+        </button>
+        <div class="auth-divider">or sign up with email</div>
         <div class="auth-error" id="signup-error"></div>
         <div class="auth-success" id="signup-success"></div>
         <div class="auth-row">
           <div>
             <span class="field-label">first name</span>
-            <input type="text" id="su-first" placeholder="ada" />
+            <input type="text" id="su-first" placeholder="advik" />
           </div>
           <div>
             <span class="field-label">last name</span>
-            <input type="text" id="su-last" placeholder="lovelace" />
+            <input type="text" id="su-last" placeholder="sinha" />
           </div>
         </div>
         <div>
@@ -458,8 +503,26 @@ const sb = createClient(
 
 let currentUser = null;
 
+async function profileComplete(userId) {
+  const { data } = await sb.from('profiles').select('grade,school,phone').eq('id', userId).single();
+  return data && data.grade && data.school && data.phone;
+}
+
+function openProfileModal() {
+  document.getElementById('profile-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProfileModal() {
+  document.getElementById('profile-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 sb.auth.onAuthStateChange(async (event, session) => {
   currentUser = session?.user ?? null;
+  if (currentUser) {
+    const done = await profileComplete(currentUser.id);
+    if (!done) { openProfileModal(); return; }
+  }
   await updateUI();
 });
 
@@ -474,7 +537,7 @@ async function updateUI() {
 
   if (currentUser) {
     const { data: profile } = await sb.from('profiles').select('full_name').eq('id', currentUser.id).single();
-    const fullName = profile?.full_name || currentUser.email;
+    const fullName = profile?.full_name || currentUser.user_metadata?.full_name || currentUser.email;
     const initials = fullName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
     signinBtn.style.display = 'none';
     pill.classList.add('visible');
@@ -511,6 +574,16 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + tab));
 }
+
+// Google OAuth
+async function signInWithGoogle() {
+  await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+}
+document.getElementById('google-signin-btn').addEventListener('click', signInWithGoogle);
+document.getElementById('google-signup-btn').addEventListener('click', signInWithGoogle);
 
 document.getElementById('nav-signin-btn').addEventListener('click', e => { e.preventDefault(); openAuthModal('signin'); });
 document.getElementById('modal-close-btn').addEventListener('click', closeAuthModal);
@@ -571,6 +644,29 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
     succEl.textContent = 'check your email to confirm your account, then sign in.';
     succEl.classList.add('show');
   }
+});
+
+// Profile completion (post-Google OAuth)
+document.getElementById('profile-save-btn').addEventListener('click', async () => {
+  const grade = document.getElementById('p-grade').value;
+  const school = document.getElementById('p-school').value.trim();
+  const phone = document.getElementById('p-phone').value.trim();
+  const errEl = document.getElementById('profile-error');
+  const btn = document.getElementById('profile-save-btn');
+  errEl.classList.remove('show');
+  if (!grade || !school || !phone) {
+    errEl.textContent = 'please fill in all fields.'; errEl.classList.add('show'); return;
+  }
+  btn.disabled = true; btn.textContent = 'saving...';
+  const fullName = currentUser.user_metadata?.full_name || currentUser.email;
+  await sb.from('profiles').upsert({
+    id: currentUser.id,
+    full_name: fullName,
+    grade, school, phone
+  });
+  btn.disabled = false; btn.textContent = 'save and continue';
+  closeProfileModal();
+  await updateUI();
 });
 
 document.getElementById('reg-form').addEventListener('submit', async e => {
