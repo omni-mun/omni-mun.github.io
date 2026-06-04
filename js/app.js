@@ -52,9 +52,6 @@ async function updateUI() {
   const pill      = document.getElementById('user-pill');
   const avatarEl  = document.getElementById('user-avatar');
   const nameEl    = document.getElementById('user-name-pill');
-  const regOut    = document.getElementById('reg-logged-out');
-  const regForm   = document.getElementById('reg-form');
-  const formSucc  = document.getElementById('form-success');
 
   if (currentUser) {
     const { data: profile } = await sb.from('profiles').select('full_name').eq('id', currentUser.id).single();
@@ -66,18 +63,11 @@ async function updateUI() {
     avatarEl.textContent = initials;
     nameEl.textContent = fullName.split(' ')[0].toLowerCase();
 
-    if (regOut)   regOut.style.display  = 'none';
-    if (regForm && formSucc) {
-      const submitted = localStorage.getItem('om_reg_smuncxxx_' + currentUser.id);
-      regForm.style.display   = submitted ? 'none' : 'flex';
-      formSucc.style.display  = submitted ? 'block' : 'none';
-    }
+    if (typeof window.updateRegForms === 'function') window.updateRegForms();
   } else {
     if (signinBtn) signinBtn.style.display = '';
     pill.classList.remove('visible');
-    if (regOut)  regOut.style.display  = 'block';
-    if (regForm) regForm.style.display = 'none';
-    if (formSucc) formSucc.style.display = 'none';
+    if (typeof window.updateRegForms === 'function') window.updateRegForms();
   }
 }
 
