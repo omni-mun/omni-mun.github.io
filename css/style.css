@@ -193,6 +193,22 @@ section { position: relative; z-index: 1; padding: 100px 2rem; }
 .conf-register h3 { font-family: var(--font); font-size: 1.2rem; font-weight: 600; color: var(--chalk); margin-bottom: .2rem; }
 .conf-register > p { font-size: .84rem; font-weight: 300; color: var(--chalk-dim); line-height: 1.7; margin-bottom: .3rem; }
 
+
+/* ── CONFERENCE TABS ── */
+.conf-tabs {
+  display: flex; gap: .6rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.conf-tab {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--chalk-dim); font-family: var(--font); font-size: .75rem;
+  font-weight: 400; letter-spacing: .08em; padding: 8px 20px;
+  border-radius: 20px; cursor: pointer; transition: all .2s;
+}
+.conf-tab:hover { border-color: var(--chalk); color: var(--chalk); }
+.conf-tab.active { background: var(--chalk); color: var(--black); border-color: var(--chalk); }
+.conf-panel { display: none; }
+.conf-panel.active { display: block; }
+
 /* ── FORMS ── */
 .reg-form { display: flex; flex-direction: column; gap: .7rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
