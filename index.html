@@ -80,139 +80,326 @@
     <p class="section-label">upcoming</p>
     <h2 class="section-title">register for a conference</h2>
     <div class="section-divider"></div>
-    <div class="conf-card">
-      <div class="conf-info">
-        <span class="conf-badge">now open &middot; nov 6&ndash;8, 2026</span>
-        <h3 class="conf-title">smunc xxx</h3>
-        <p class="conf-host">stanford university &middot; stanford, ca</p>
-        <ul class="conf-details">
-          <li>november 6&ndash;8, 2026 at stanford university</li>
-          <li>registration closes june 31 &mdash; register asap</li>
-          <li>est. ~$130 for conference ticket</li>
-          <li>hotel $199/night per room &mdash; 4 kids per room</li>
-          <li>omni mun delegation coaching included</li>
-          <li>dm @omni.mun or email (916) 692-0802</li>
-        </ul>
-        <p style="font-size:.78rem;color:var(--chalk-dim);line-height:1.7">payment is due urgently after the group chat is made. we'll add you to the omni smunc group chat once the form closes.</p>
-      </div>
-      <div class="conf-register" style="overflow-y:auto;max-height:620px">
-        <h3>join omni at smunc xxx</h3>
 
-        <div id="reg-logged-out">
-          <p>sign in to register for smunc xxx.</p>
-          <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
-            <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.78rem;padding:10px 20px">create account</button>
-            <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.78rem;padding:10px 20px">sign in</button>
-          </div>
+    <!-- conference tabs -->
+    <div class="conf-tabs">
+      <button class="conf-tab active" data-conf="smunc">smunc xxx</button>
+      <button class="conf-tab" data-conf="gauchomun">gauchomun xviii</button>
+      <button class="conf-tab" data-conf="bearmun">bearmun viii</button>
+    </div>
+
+    <!-- ── SMUNC XXX ── -->
+    <div class="conf-panel" id="conf-smunc">
+      <div class="conf-card">
+        <div class="conf-info">
+          <span class="conf-badge">now open &middot; nov 6&ndash;8, 2026</span>
+          <h3 class="conf-title">smunc xxx</h3>
+          <p class="conf-host">stanford university &middot; stanford, ca</p>
+          <ul class="conf-details">
+            <li>november 6&ndash;8, 2026 at stanford university</li>
+            <li>registration closes july 31 &mdash; register asap, late reg is much more expensive</li>
+            <li>est. ~$450/student total (conference + hotel)</li>
+            <li>hotel $199/night per room &mdash; 4 students per room</li>
+            <li>omni mun delegation coaching included</li>
+            <li>questions? dm @omni.mun or call/text (916) 692-0802</li>
+          </ul>
+          <p style="font-size:.78rem;color:var(--chalk-dim);line-height:1.7">payment is due urgently after the group chat is made. we'll add you to the omni smunc group chat once the form closes. you'll choose your roommates in the chat.</p>
         </div>
-
-        <form class="reg-form" id="reg-form" style="display:none" novalidate>
-          <div class="auth-error" id="reg-error"></div>
-
-          <div class="form-group">
-            <label>instagram username</label>
-            <input type="text" id="r-instagram" placeholder="@yourusername" />
-          </div>
-          <div class="form-group">
-            <label>years of model un experience</label>
-            <select id="r-exp">
-              <option value="">select...</option>
-              <option value="1">1 year</option><option value="2">2 years</option>
-              <option value="3">3 years</option><option value="4">4 years</option>
-              <option value="5">5 years</option><option value="6">6 years</option>
-              <option value="7">7 years</option><option value="8">8 years</option>
-              <option value="9">9 years</option><option value="10">10+ years</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>committee preference</label>
-            <select id="r-committee">
-              <option value="">select a committee...</option>
-              <optgroup label="── general assembly ──">
-                <option>DISEC &mdash; Disarmament and International Security</option>
-                <option>UNIFEM &mdash; UN Development Fund for Women</option>
-                <option>SOCHUM &mdash; Social, Cultural, and Humanitarian</option>
-                <option>SPECPOL &mdash; Special Political and Decolonization</option>
-                <option>General Assembly Plenary</option>
-                <option>CSTD &mdash; Commission on Science and Technology (beginner friendly)</option>
-                <option>WHO &mdash; World Health Organization (beginner friendly)</option>
-              </optgroup>
-              <optgroup label="── specialized bodies ──">
-                <option>UNSC &mdash; UN Security Council</option>
-                <option>Congress of Vienna, 1814</option>
-                <option>ICC &mdash; International Criminal Court</option>
-                <option>Asian Development Bank</option>
-                <option>NATO Emergency Session, 2028</option>
-                <option>Anthropic AI: Board of Directors</option>
-                <option>Divine Symposium of Greek Patrons</option>
-                <option>World Bank Emergency Session on Argentina, 2001</option>
-              </optgroup>
-              <optgroup label="── crisis committees ──">
-                <option>Ad-Hoc Committee of the Secretary-General</option>
-                <option>Tokugawa Shogunate, 1603</option>
-                <option>Emergency Session of the Soviet Presidium, 1953</option>
-                <option>Cabinet of Singapore</option>
-                <option>JCC Spanish Succession: Habsburg Bloc</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>notes / other preferences (optional)</label>
-            <textarea id="r-notes" placeholder="other committees, questions, anything..."></textarea>
-          </div>
-
-          <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:.3rem">
-            <p style="font-size:.65rem;letter-spacing:.12em;color:var(--chalk-dim);margin-bottom:.9rem">parent / guardian</p>
-            <div class="form-group" style="margin-bottom:.6rem">
-              <label>is your guardian considering being an advisor?</label>
-              <select id="r-advisor">
-                <option value="">select...</option>
-                <option value="yes">yes</option>
-                <option value="no">no</option>
-                <option value="maybe">maybe</option>
-              </select>
+        <div class="conf-register" style="overflow-y:auto;max-height:680px">
+          <h3>join omni at smunc xxx</h3>
+          <div class="reg-logged-out">
+            <p>sign in to register for smunc xxx.</p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+              <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.78rem;padding:10px 20px">create account</button>
+              <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.78rem;padding:10px 20px">sign in</button>
             </div>
-            <div class="form-group" style="margin-bottom:.6rem">
-              <label>guardian's full name</label>
-              <input type="text" id="r-guardian-name" placeholder="full name" />
-            </div>
-            <div class="form-group" style="margin-bottom:.6rem">
-              <label>guardian's email</label>
-              <input type="email" id="r-guardian-email" placeholder="parent@email.com" />
+          </div>
+          <form class="reg-form" id="reg-form-smunc" data-conf="SMUNC XXX" style="display:none;flex-direction:column;gap:.9rem" novalidate>
+            <div class="auth-error reg-error"></div>
+            <div class="form-group">
+              <label>instagram username</label>
+              <input type="text" class="r-instagram" placeholder="@yourusername" />
             </div>
             <div class="form-group">
-              <label>guardian's phone</label>
-              <input type="tel" id="r-guardian-phone" placeholder="(555) 000-0000" />
+              <label>years of model un experience *</label>
+              <select class="r-exp">
+                <option value="">select...</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+                <option>9</option><option>10+</option>
+              </select>
             </div>
+            <div class="form-group">
+              <label>committee preference *</label>
+              <select class="r-committee">
+                <option value="">select a committee...</option>
+                <optgroup label="── general assembly ──">
+                  <option>DISEC — Disarmament and International Security</option>
+                  <option>UNIFEM — UN Development Fund for Women</option>
+                  <option>SOCHUM — Social, Cultural, and Humanitarian</option>
+                  <option>SPECPOL — Special Political and Decolonization</option>
+                  <option>General Assembly Plenary</option>
+                  <option>CSTD — Commission on Science and Technology (beginner friendly)</option>
+                  <option>WHO — World Health Organization (beginner friendly)</option>
+                </optgroup>
+                <optgroup label="── specialized bodies ──">
+                  <option>UNSC — UN Security Council</option>
+                  <option>Congress of Vienna, 1814</option>
+                  <option>ICC — International Criminal Court</option>
+                  <option>Asian Development Bank</option>
+                  <option>NATO Emergency Session, 2028</option>
+                  <option>Anthropic AI: Board of Directors</option>
+                  <option>Divine Symposium of Greek Patrons</option>
+                  <option>World Bank Emergency Session on Argentina, 2001</option>
+                </optgroup>
+                <optgroup label="── crisis committees ──">
+                  <option>Ad-Hoc Committee of the Secretary-General</option>
+                  <option>Tokugawa Shogunate, 1603</option>
+                  <option>Emergency Session of the Soviet Presidium, 1953</option>
+                  <option>Cabinet of Singapore</option>
+                  <option>JCC Spanish Succession: Habsburg Bloc</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>notes / other preferences (optional)</label>
+              <textarea class="r-notes" placeholder="other committees, questions, anything..."></textarea>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:1rem">
+              <p style="font-size:.65rem;letter-spacing:.12em;color:var(--chalk-dim);margin-bottom:.9rem">parent / guardian</p>
+              <div class="form-group">
+                <label>guardian's full name *</label>
+                <input type="text" class="r-guardian-name" placeholder="full name" />
+              </div>
+              <div class="form-group">
+                <label>guardian's email *</label>
+                <input type="email" class="r-guardian-email" placeholder="parent@email.com" />
+              </div>
+              <div class="form-group">
+                <label>guardian's phone *</label>
+                <input type="tel" class="r-guardian-phone" placeholder="(555) 000-0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>hotel / commute preference *</label>
+              <select class="r-hotel">
+                <option value="">select...</option>
+                <option value="hotel">hotel ($199/night per room, 4 per room)</option>
+                <option value="commute">i'll drive each day</option>
+                <option value="undecided">undecided</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>roommate preference (optional)</label>
+              <input type="text" class="r-roommate" placeholder="who would you want to room with?" />
+            </div>
+            <div class="form-group">
+              <label>anything else? (optional)</label>
+              <textarea class="r-description" placeholder="other notes..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">submit registration &rarr;</button>
+          </form>
+          <div class="form-success" id="form-success-smunc" style="display:none">
+            you're in for smunc xxx! we'll add you to the group chat once registration closes.<br/><br/>
+            questions? dm @omni.mun or call/text (916) 692-0802
           </div>
-
-          <div class="form-group">
-            <label>hotel / commute preference</label>
-            <select id="r-hotel">
-              <option value="">select...</option>
-              <option value="hotel">hotel ($199/night per room, 4 per room)</option>
-              <option value="commute">i'll drive each day</option>
-              <option value="undecided">undecided</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>roommate preference (optional)</label>
-            <input type="text" id="r-roommate" placeholder="who would you want to room with?" />
-          </div>
-          <div class="form-group">
-            <label>anything else? (optional)</label>
-            <textarea id="r-description" placeholder="other notes..."></textarea>
-          </div>
-
-          <button type="submit" class="form-submit" id="reg-submit">submit registration &rarr;</button>
-        </form>
-
-        <div class="form-success" id="form-success">
-          you're in for smunc xxx. we'll add you to the group chat once registration closes.<br/>
-          questions? dm @omni.mun or email (916) 692-0802
         </div>
       </div>
     </div>
+
+    <!-- ── GAUCHOMUN XVIII ── -->
+    <div class="conf-panel" id="conf-gauchomun" style="display:none">
+      <div class="conf-card">
+        <div class="conf-info">
+          <span class="conf-badge">upcoming &middot; jan 23&ndash;24, 2027</span>
+          <h3 class="conf-title">gauchomun xviii</h3>
+          <p class="conf-host">uc santa barbara &middot; santa barbara, ca</p>
+          <ul class="conf-details">
+            <li>january 23&ndash;24, 2027 at uc santa barbara</li>
+            <li>registration closes september 20, 2026</li>
+            <li>est. ~$80/student for conference</li>
+            <li>hotels self-booked (omni doesn't manage accommodations)</li>
+            <li>omni mun delegation coaching included</li>
+            <li>questions? dm @omni.mun or call/text (916) 692-0802</li>
+          </ul>
+        </div>
+        <div class="conf-register" style="overflow-y:auto;max-height:680px">
+          <h3>join omni at gauchomun xviii</h3>
+          <div class="reg-logged-out">
+            <p>sign in to register for gauchomun xviii.</p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+              <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.78rem;padding:10px 20px">create account</button>
+              <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.78rem;padding:10px 20px">sign in</button>
+            </div>
+          </div>
+          <form class="reg-form" id="reg-form-gauchomun" data-conf="GauchoMUN XVIII" style="display:none;flex-direction:column;gap:.9rem" novalidate>
+            <div class="auth-error reg-error"></div>
+            <div class="form-group">
+              <label>instagram username</label>
+              <input type="text" class="r-instagram" placeholder="@yourusername" />
+            </div>
+            <div class="form-group">
+              <label>years of model un experience *</label>
+              <select class="r-exp">
+                <option value="">select...</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+                <option>9</option><option>10+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>committee preference *</label>
+              <select class="r-committee">
+                <option value="">select a committee...</option>
+                <optgroup label="── general assembly ──">
+                  <option>UNICEF (double delegation)</option>
+                  <option>IOM — International Organization for Migration</option>
+                </optgroup>
+                <optgroup label="── specialized ──">
+                  <option>US Senate: Accessibility to Insulin &amp; Prescription Drugs</option>
+                </optgroup>
+                <optgroup label="── crisis committees ──">
+                  <option>The Medici Family: War with the Pope</option>
+                  <option>JCC: Camp Half-Blood</option>
+                  <option>JCC: Camp Jupiter</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>notes / other preferences (optional)</label>
+              <textarea class="r-notes" placeholder="other committees, questions, anything..."></textarea>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:1rem">
+              <p style="font-size:.65rem;letter-spacing:.12em;color:var(--chalk-dim);margin-bottom:.9rem">parent / guardian</p>
+              <div class="form-group">
+                <label>guardian's full name *</label>
+                <input type="text" class="r-guardian-name" placeholder="full name" />
+              </div>
+              <div class="form-group">
+                <label>guardian's email *</label>
+                <input type="email" class="r-guardian-email" placeholder="parent@email.com" />
+              </div>
+              <div class="form-group">
+                <label>guardian's phone *</label>
+                <input type="tel" class="r-guardian-phone" placeholder="(555) 000-0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>hotel / commute preference *</label>
+              <select class="r-hotel">
+                <option value="">select...</option>
+                <option value="hotel">i'll book my own hotel</option>
+                <option value="commute">i'll drive each day</option>
+                <option value="undecided">undecided</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>roommate preference (optional)</label>
+              <input type="text" class="r-roommate" placeholder="who would you want to room with?" />
+            </div>
+            <div class="form-group">
+              <label>anything else? (optional)</label>
+              <textarea class="r-description" placeholder="other notes..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">submit registration &rarr;</button>
+          </form>
+          <div class="form-success" id="form-success-gauchomun" style="display:none">
+            you're in for gauchomun xviii! we'll add you to the group chat once registration closes.<br/><br/>
+            questions? dm @omni.mun or call/text (916) 692-0802
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BEARMUN VIII ── -->
+    <div class="conf-panel" id="conf-bearmun" style="display:none">
+      <div class="conf-card">
+        <div class="conf-info">
+          <span class="conf-badge">upcoming &middot; dec 5&ndash;6, 2026</span>
+          <h3 class="conf-title">bearmun viii</h3>
+          <p class="conf-host">uc berkeley &middot; berkeley, ca</p>
+          <ul class="conf-details">
+            <li>december 5&ndash;6, 2026 at uc berkeley</li>
+            <li>registration closes august 25, 2026</li>
+            <li>est. ~$80/student for conference</li>
+            <li>driving recommended &mdash; less than 2 hrs from sacramento</li>
+            <li>omni mun delegation coaching included</li>
+            <li>questions? dm @omni.mun or call/text (916) 692-0802</li>
+          </ul>
+        </div>
+        <div class="conf-register" style="overflow-y:auto;max-height:680px">
+          <h3>join omni at bearmun viii</h3>
+          <div class="reg-logged-out">
+            <p>sign in to register for bearmun viii.</p>
+            <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem">
+              <button class="btn-primary" onclick="openAuthModal('signup')" style="font-size:.78rem;padding:10px 20px">create account</button>
+              <button class="btn-outline" onclick="openAuthModal('signin')" style="font-size:.78rem;padding:10px 20px">sign in</button>
+            </div>
+          </div>
+          <form class="reg-form" id="reg-form-bearmun" data-conf="BearMUN VIII" style="display:none;flex-direction:column;gap:.9rem" novalidate>
+            <div class="auth-error reg-error"></div>
+            <div class="form-group">
+              <label>instagram username</label>
+              <input type="text" class="r-instagram" placeholder="@yourusername" />
+            </div>
+            <div class="form-group">
+              <label>years of model un experience *</label>
+              <select class="r-exp">
+                <option value="">select...</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+                <option>9</option><option>10+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>committee preference *</label>
+              <select class="r-committee">
+                <option value="">select a committee...</option>
+                <option>committees coming soon — enter any preference below</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>committee notes / preferences (optional)</label>
+              <textarea class="r-notes" placeholder="committees aren't released yet — share any preferences here..."></textarea>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:1rem">
+              <p style="font-size:.65rem;letter-spacing:.12em;color:var(--chalk-dim);margin-bottom:.9rem">parent / guardian</p>
+              <div class="form-group">
+                <label>guardian's full name *</label>
+                <input type="text" class="r-guardian-name" placeholder="full name" />
+              </div>
+              <div class="form-group">
+                <label>guardian's email *</label>
+                <input type="email" class="r-guardian-email" placeholder="parent@email.com" />
+              </div>
+              <div class="form-group">
+                <label>guardian's phone *</label>
+                <input type="tel" class="r-guardian-phone" placeholder="(555) 000-0000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>commute or hotel? *</label>
+              <select class="r-hotel">
+                <option value="">select...</option>
+                <option value="commute">driving each day (recommended)</option>
+                <option value="hotel">i'll book my own hotel</option>
+                <option value="undecided">undecided</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>anything else? (optional)</label>
+              <textarea class="r-description" placeholder="other notes..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">submit registration &rarr;</button>
+          </form>
+          <div class="form-success" id="form-success-bearmun" style="display:none">
+            you're in for bearmun viii! we'll add you to the group chat once registration closes.<br/><br/>
+            questions? dm @omni.mun or call/text (916) 692-0802
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -240,7 +427,7 @@
 
       <div class="hist-panel" data-conf="2">
         <span class="step-label">dec 6&ndash;7, 2025</span>
-        <h3 class="step-title">bearmun viii</h3>
+        <h3 class="step-title">bearmun vii</h3>
         <p class="step-body">hosted at uc berkeley. a tight two-day conference in the heart of berkeley. omni mun delegates went head-to-head with delegations from across the bay area and beyond.</p>
       </div>
 
@@ -251,9 +438,24 @@
       </div>
 
       <div class="hist-panel" data-conf="4">
-        <span class="step-label">nov 6&ndash;8, 2026 &mdash; upcoming</span>
+        <span class="step-label">nov 6&ndash;8, 2026 &mdash; <span class="conf-badge" style="font-size:.65rem;padding:2px 8px">upcoming</span></span>
         <h3 class="step-title">smunc xxx</h3>
-        <p class="step-body">hosted at stanford university. three days on the farm — one of the most prestigious collegiate conferences in the nation. registration is open now. <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block">register for smunc xxx</a></p>
+        <p class="step-body">hosted at stanford university. three days on the farm — one of the most prestigious collegiate conferences in the nation. registration is open now.</p>
+        <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=smunc]').classList.add('active');document.getElementById('conf-smunc').style.display='block'">register for smunc xxx</a>
+      </div>
+
+      <div class="hist-panel" data-conf="5">
+        <span class="step-label">dec 5&ndash;6, 2026 &mdash; <span class="conf-badge" style="font-size:.65rem;padding:2px 8px">upcoming</span></span>
+        <h3 class="step-title">bearmun viii</h3>
+        <p class="step-body">hosted at uc berkeley. the bay area's premier collegiate mun — a fast, competitive two-day conference. committees not yet released.</p>
+        <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=bearmun]').classList.add('active');document.getElementById('conf-bearmun').style.display='block'">register for bearmun viii</a>
+      </div>
+
+      <div class="hist-panel" data-conf="6">
+        <span class="step-label">jan 23&ndash;24, 2027 &mdash; <span class="conf-badge" style="font-size:.65rem;padding:2px 8px">upcoming</span></span>
+        <h3 class="step-title">gauchomun xviii</h3>
+        <p class="step-body">hosted at uc santa barbara. back down the coast for 2027 — gauchomun returns with a full committee slate and a weekend you won't forget.</p>
+        <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=gauchomun]').classList.add('active');document.getElementById('conf-gauchomun').style.display='block'">register for gauchomun xviii</a>
       </div>
 
     </div>
