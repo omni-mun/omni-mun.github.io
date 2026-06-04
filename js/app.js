@@ -3,13 +3,11 @@
 //  supabase auth + ui state
 // ─────────────────────────────────────────
 
-const SUPABASE_URL = 'https://fqdzvjguxjjhaahqyzws.supabase.co';
+const SUPABASE_URL  = 'https://fqdzvjguxjjhaahqyzws.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxZHp2amd1eGpqaGFhaHF5endzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NDM1MTgsImV4cCI6MjA5NjAxOTUxOH0.5qFUKd12rJJdzy3pJ7kgadZohmP7eTOeJTXyAdfkuJ0';
 
 const { createClient } = supabase;
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
-
-// expose globally so register.js can use it
 window.sb = sb;
 
 let currentUser = null;
@@ -33,6 +31,18 @@ window.currentUser = null;
 async function profileComplete(userId) {
   const { data } = await sb.from('profiles').select('grade,school,phone').eq('id', userId).single();
   return data && data.grade && data.school && data.phone;
+}
+
+// ── Safe updateRegForms caller — works even if register.js hasn't run yet ──
+function safeUpdateRegForms() {
+  if (typeof window.updateRegForms === 'function') {
+    window.updateRegForms();
+  } else {
+    // register.js not loaded yet — retry after it loads
+    window.addEventListener('load', () => {
+      if (typeof window.updateRegForms === 'function') window.updateRegForms();
+    }, { once: true });
+  }
 }
 
 // ── Auth state ──
@@ -62,13 +72,12 @@ async function updateUI() {
     pill.classList.add('visible');
     avatarEl.textContent = initials;
     nameEl.textContent = fullName.split(' ')[0].toLowerCase();
-
-    if (typeof window.updateRegForms === 'function') window.updateRegForms();
   } else {
     if (signinBtn) signinBtn.style.display = '';
     pill.classList.remove('visible');
-    if (typeof window.updateRegForms === 'function') window.updateRegForms();
   }
+
+  safeUpdateRegForms();
 }
 
 // ── Modal helpers ──
@@ -103,10 +112,9 @@ function closeAccountModal() {
   document.body.style.overflow = '';
 }
 
-// expose for inline onclick
-window.openAuthModal    = openAuthModal;
-window.closeAuthModal   = closeAuthModal;
-window.switchTab        = switchTab;
+window.openAuthModal     = openAuthModal;
+window.closeAuthModal    = closeAuthModal;
+window.switchTab         = switchTab;
 window.closeAccountModal = closeAccountModal;
 
 // ── Nav wiring ──
@@ -119,7 +127,7 @@ document.getElementById('account-modal').addEventListener('click', e => { if (e.
 
 // ── Google OAuth ──
 async function signInWithGoogle() {
-  await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+  await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: 'https://omni-mun.github.io/' } });
 }
 document.getElementById('google-signin-btn').addEventListener('click', signInWithGoogle);
 document.getElementById('google-signup-btn').addEventListener('click', signInWithGoogle);
@@ -157,7 +165,7 @@ document.getElementById('signup-btn').addEventListener('click', async () => {
   if (!first || !last || !grade || !school || !email || !phone || !pw) {
     errEl.textContent = 'please fill in all fields.'; errEl.classList.add('show'); return;
   }
-  if (pw !== pw2)  { errEl.textContent = 'passwords do not match.'; errEl.classList.add('show'); return; }
+  if (pw !== pw2)    { errEl.textContent = 'passwords do not match.'; errEl.classList.add('show'); return; }
   if (pw.length < 6) { errEl.textContent = 'password must be at least 6 characters.'; errEl.classList.add('show'); return; }
 
   btn.disabled = true; btn.textContent = 'creating account...';
@@ -221,7 +229,7 @@ async function loadAccountData() {
   }
 }
 
-// ── Sign out (via account modal button) ──
+// ── Sign out ──
 window.signOut = async () => { if (confirm('sign out?')) await sb.auth.signOut(); };
 
 // ── Hamburger ──
