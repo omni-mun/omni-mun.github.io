@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inserts a scrolling text ticker between hero and about sections.
   const about = document.getElementById('about');
   if (about) {
-    const tickerText = 'omni mun &nbsp;·&nbsp; norcal independent delegation &nbsp;·&nbsp; smunc xxx &nbsp;·&nbsp; stanford university &nbsp;·&nbsp; nov 6–8, 2026 &nbsp;·&nbsp; register now &nbsp;·&nbsp; ';
+    const tickerText = 'omni mun &nbsp;·&nbsp; norcal independent delegation &nbsp;·&nbsp; stanford &nbsp;·&nbsp; ucla &nbsp;·&nbsp; uc berkeley &nbsp;·&nbsp; uc davis &nbsp;·&nbsp; uc san diego &nbsp;·&nbsp; uc santa barbara &nbsp;·&nbsp; ';
     const ticker = document.createElement('div');
     ticker.className = 'ticker-line';
     // duplicate the text so the loop is seamless
