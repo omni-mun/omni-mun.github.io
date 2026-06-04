@@ -223,37 +223,79 @@
     <p class="section-label">track record</p>
     <h2 class="section-title">conference history</h2>
     <div class="section-divider"></div>
-    <div class="timeline">
-      <div class="tl-row">
-        <div class="tl-year">2025</div>
-        <div class="tl-events">
-          <div class="tl-event">
-            <div class="tl-dot"></div>
-            <p class="tl-host">uc los angeles &middot; nov 8&ndash;9</p>
-            <p class="tl-conf">bruinmun 33</p>
-          </div>
-          <div class="tl-event">
-            <div class="tl-dot"></div>
-            <p class="tl-host">uc berkeley &middot; dec 6&ndash;7</p>
-            <p class="tl-conf">bearmun viii</p>
-          </div>
-        </div>
+  </div>
+  <div class="hist-scroll">
+    <div class="hist-sticky">
+      <div class="hist-num" id="hist-num">i.</div>
+      <div class="step-progress">
+        <div class="step-progress-bar" id="hist-progress-bar"></div>
       </div>
-      <div class="tl-row">
-        <div class="tl-year">2026</div>
-        <div class="tl-events">
-          <div class="tl-event">
-            <div class="tl-dot upcoming"></div>
-            <p class="tl-host">uc santa barbara &middot; jan 24&ndash;25</p>
-            <p class="tl-conf">gauchomun xvii</p>
-          </div>
-          <div class="tl-event">
-            <div class="tl-dot upcoming"></div>
-            <p class="tl-host">stanford university &middot; nov 6&ndash;8</p>
-            <p class="tl-conf">smunc xxx <span class="tl-badge">upcoming</span></p>
-          </div>
-        </div>
+    </div>
+    <div class="hist-content">
+
+      <div class="hist-panel" data-conf="1">
+        <span class="step-label">nov 8&ndash;9, 2025</span>
+        <h3 class="step-title">bruinmun 33</h3>
+        <p class="step-body">hosted at uc los angeles. one of the largest collegiate model un conferences in the country — omni mun's delegation competed across ga, crisis, and specialized committees on the westwood campus.</p>
       </div>
+
+      <div class="hist-panel" data-conf="2">
+        <span class="step-label">dec 6&ndash;7, 2025</span>
+        <h3 class="step-title">bearmun viii</h3>
+        <p class="step-body">hosted at uc berkeley. a tight two-day conference in the heart of berkeley. omni mun delegates went head-to-head with delegations from across the bay area and beyond.</p>
+      </div>
+
+      <div class="hist-panel" data-conf="3">
+        <span class="step-label">jan 24&ndash;25, 2026</span>
+        <h3 class="step-title">gauchomun xvii</h3>
+        <p class="step-body">hosted at uc santa barbara. a weekend trip down the coast — committee sessions by day, the beach by night. omni mun's first conference of 2026.</p>
+      </div>
+
+      <div class="hist-panel" data-conf="4">
+        <span class="step-label">nov 6&ndash;8, 2026 &mdash; upcoming</span>
+        <h3 class="step-title">smunc xxx</h3>
+        <p class="step-body">hosted at stanford university. three days on the farm — one of the most prestigious collegiate conferences in the nation. registration is open now. <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block">register for smunc xxx</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── how it works (sticky scroll) ── -->
+<section id="how-it-works">
+  <div class="container">
+    <p class="section-label">the process</p>
+    <h2 class="section-title">how omni mun works</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="steps-scroll">
+    <div class="steps-sticky">
+      <div class="step-num" id="step-num">i.</div>
+      <div class="step-progress">
+        <div class="step-progress-bar" id="step-progress-bar"></div>
+      </div>
+    </div>
+    <div class="steps-content">
+
+      <div class="step-panel" data-step="1">
+        <span class="step-label">step one</span>
+        <h3 class="step-title">register &amp; join the delegation</h3>
+        <p class="step-body">sign up on this site and fill out the conference form. once registration closes, you'll get added to the omni mun group chat where we coordinate everything — payments, hotel rooms, and prep.</p>
+        <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block">register for smunc xxx</a>
+      </div>
+
+      <div class="step-panel" data-step="2">
+        <span class="step-label">step two</span>
+        <h3 class="step-title">prepare with the team</h3>
+        <p class="step-body">we do group prep before every conference — position papers, committee research, and strategy sessions. whether you're a veteran or it's your first conference, omni mun coaches you to walk in ready.</p>
+      </div>
+
+      <div class="step-panel" data-step="3">
+        <span class="step-label">step three</span>
+        <h3 class="step-title">compete &amp; represent</h3>
+        <p class="step-body">show up to the conference as part of one of norcal's most competitive independent delegations. debate on the floor, build your network, and leave with skills you'll actually use — win or not.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -400,5 +442,6 @@
 
 <script src="js/app.js"></script>
 <script src="js/register.js"></script>
+<script src="js/animations.js"></script>
 </body>
 </html>
