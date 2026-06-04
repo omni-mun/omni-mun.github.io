@@ -8,13 +8,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --black:   #0d0d0d;
-  --chalk:   #f0ece4;
-  --chalk-dim: rgba(240,236,228,0.55);
-  --chalk-faint: rgba(240,236,228,0.18);
+  --black:   #ffffff;
+  --chalk:   #1a1a1a;
+  --chalk-dim: rgba(26,26,26,0.6);
+  --chalk-faint: rgba(26,26,26,0.18);
   --white:   #ffffff;
-  --mid:     #2a2a2a;
-  --border:  rgba(240,236,228,0.14);
+  --mid:     #e6e2da;
+  --border:  rgba(26,26,26,0.14);
   --font:    'Comfortaa', system-ui, sans-serif;
 }
 
@@ -38,7 +38,7 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 3rem; height: 66px;
-  background: rgba(13,13,13,0.92);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
@@ -171,11 +171,11 @@ section { position: relative; z-index: 1; padding: 100px 2rem; }
 .section-divider { width: 32px; height: 1px; background: rgba(240,236,228,.3); margin-bottom: 2.5rem; }
 
 /* ── ABOUT ── */
-#about { background: #111111; }
+#about { background: #f4f2ec; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
 .about-text p { font-size: .9rem; font-weight: 300; color: var(--chalk-dim); line-height: 1.9; margin-bottom: 1.2rem; }
 .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.stat-card { background: #111111; padding: 2rem 1.5rem; text-align: center; border-radius: 18px; }
+.stat-card { background: #f4f2ec; padding: 2rem 1.5rem; text-align: center; border-radius: 18px; }
 .stat-num { font-family: var(--font); font-size: 1.5rem; font-weight: 700; color: var(--chalk); line-height: 1; margin-bottom: .5rem; }
 .stat-label { font-size: .68rem; font-weight: 300; letter-spacing: .08em; color: var(--chalk-dim); }
 
@@ -204,7 +204,7 @@ section { position: relative; z-index: 1; padding: 100px 2rem; }
   outline: none; transition: border-color .2s; width: 100%; border-radius: 0;
 }
 .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(240,236,228,.25); }
-.form-group select option { background: #111; }
+.form-group select option { background: #f4f2ec; }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-bottom-color: var(--chalk); }
 .form-group textarea { resize: vertical; min-height: 66px; }
 .form-submit {
@@ -221,7 +221,7 @@ section { position: relative; z-index: 1; padding: 100px 2rem; }
 }
 
 /* ── HISTORY ── */
-#history { background: #111111; }
+#history { background: #f4f2ec; }
 .timeline { display: flex; flex-direction: column; }
 .tl-row { display: grid; grid-template-columns: 56px 1fr; gap: 0 2rem; align-items: stretch; }
 .tl-year { text-align: right; padding-top: 2px; font-size: .9rem; font-weight: 600; color: var(--chalk-dim); white-space: nowrap; }
@@ -257,7 +257,7 @@ footer a:hover { opacity: .7; }
 }
 .modal-overlay.open { display: flex; }
 .modal {
-  background: #111; border: 1px solid var(--border); border-radius: 24px;
+  background: #f4f2ec; border: 1px solid var(--border); border-radius: 24px;
   width: 100%; max-width: 460px; padding: 2.5rem;
   position: relative; animation: fadeUp .25s ease both; max-height: 90vh; overflow-y: auto;
 }
@@ -280,7 +280,7 @@ footer a:hover { opacity: .7; }
 }
 .auth-form input::placeholder { color: rgba(240,236,228,.25); }
 .auth-form input:focus, .auth-form select:focus { border-bottom-color: var(--chalk); }
-.auth-form select option { background: #111; }
+.auth-form select option { background: #f4f2ec; }
 .auth-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
 .field-label { font-size: .65rem; font-weight: 400; letter-spacing: .08em; color: var(--chalk-dim); margin-bottom: 2px; display: block; }
 .auth-btn {
@@ -507,7 +507,7 @@ footer a:hover { opacity: .7; }
 
 
 /* ── HISTORY STICKY SCROLL ── */
-#history { background: #111111; padding-bottom: 0; }
+#history { background: #f4f2ec; padding-bottom: 0; }
 #history .container { padding-bottom: 0; }
 
 .hist-scroll {
