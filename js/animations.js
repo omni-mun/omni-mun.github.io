@@ -161,6 +161,42 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+
+  // ── 8b. Steps sticky scroll (how omni mun works) ───────────────
+  const stepPanels = document.querySelectorAll('.step-panel');
+  const stepNum    = document.getElementById('step-num');
+  const stepBar    = document.getElementById('step-progress-bar');
+  const stepRoman  = ['i.', 'ii.', 'iii.', 'iv.', 'v.'];
+
+  if (stepPanels.length && stepNum) {
+    // set default immediately so it shows on load
+    stepNum.textContent = stepRoman[0];
+    stepPanels[0].classList.add('active');
+
+    const updateSteps = () => {
+      const scrollY = window.scrollY;
+      const winH    = window.innerHeight;
+      let activeIdx = 0;
+
+      stepPanels.forEach((panel, i) => {
+        const mid = panel.getBoundingClientRect().top + panel.getBoundingClientRect().height / 2;
+        if (mid < winH * 0.6) activeIdx = i;
+        panel.classList.toggle('active', i === activeIdx);
+      });
+
+      const first = stepPanels[0].getBoundingClientRect().top + scrollY;
+      const last  = stepPanels[stepPanels.length - 1].getBoundingClientRect().bottom + scrollY;
+      const pos   = scrollY + winH * 0.6 - first;
+      const prog  = Math.min(Math.max(pos / (last - first), 0), 1) * 100;
+
+      if (stepBar) stepBar.style.height = prog + '%';
+      stepNum.textContent = stepRoman[activeIdx] || stepRoman[stepRoman.length - 1];
+    };
+
+    window.addEventListener('scroll', updateSteps, { passive: true });
+    updateSteps();
+  }
+
   // ── 8. History sticky scroll (roman numerals) ──────────────────
   // Mirrors the steps-scroll logic but for .hist-panel elements.
   const histPanels = document.querySelectorAll('.hist-panel');
