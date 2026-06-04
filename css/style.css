@@ -324,6 +324,251 @@ footer a:hover { opacity: .7; }
 /* ── ANIMATIONS ── */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
+/* ── HOW IT WORKS — STICKY SCROLL ── */
+#how-it-works { background: var(--black); padding-bottom: 0; }
+#how-it-works .container { padding-bottom: 0; }
+
+.steps-scroll {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.steps-sticky {
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 4rem 0 4rem;
+}
+
+.step-num {
+  font-family: var(--font);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--chalk);
+  line-height: 1;
+  letter-spacing: -.03em;
+  transition: opacity .4s ease;
+}
+
+.step-progress {
+  width: 1px;
+  height: 120px;
+  background: rgba(240,236,228,.12);
+  position: relative;
+  border-radius: 1px;
+}
+.step-progress-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: var(--chalk);
+  border-radius: 1px;
+  height: 0%;
+  transition: height .1s linear;
+}
+
+.steps-content {
+  border-left: 1px solid var(--border);
+  padding-left: 4rem;
+}
+
+.step-panel {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0;
+  opacity: 0.28;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.step-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-label {
+  font-size: .65rem;
+  font-weight: 400;
+  letter-spacing: .2em;
+  color: var(--chalk-dim);
+  display: block;
+  margin-bottom: 1rem;
+}
+.step-title {
+  font-family: var(--font);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 600;
+  color: var(--chalk);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+  letter-spacing: -.02em;
+}
+.step-body {
+  font-size: .95rem;
+  font-weight: 300;
+  color: var(--chalk-dim);
+  line-height: 1.9;
+  max-width: 500px;
+}
+
+@media (max-width: 750px) {
+  .steps-scroll { grid-template-columns: 1fr; padding: 0 1.2rem; }
+  .steps-sticky { display: none; }
+  .steps-content { border-left: none; padding-left: 0; }
+  .step-panel { opacity: 1; transform: none; min-height: auto; padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .step-panel:last-child { border-bottom: none; }
+  .step-num-mobile {
+    font-family: var(--font); font-size: 2rem; font-weight: 700;
+    color: var(--chalk); display: block; margin-bottom: .8rem;
+  }
+}
+   Elements start hidden. JS adds .is-visible when they enter the viewport.
+   Use data-reveal="up|left|right|fade" and data-delay="0|1|2|3" on any element.
+─────────────────────────────────────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transition: opacity 0.65s cubic-bezier(.22,.68,0,1.1), transform 0.65s cubic-bezier(.22,.68,0,1.1);
+  will-change: opacity, transform;
+}
+
+[data-reveal="up"]    { transform: translateY(36px); }
+[data-reveal="left"]  { transform: translateX(-36px); }
+[data-reveal="right"] { transform: translateX(36px); }
+[data-reveal="fade"]  { transform: none; }
+[data-reveal="scale"] { transform: scale(0.94); }
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* staggered delay helpers */
+[data-delay="1"] { transition-delay: 0.1s; }
+[data-delay="2"] { transition-delay: 0.2s; }
+[data-delay="3"] { transition-delay: 0.32s; }
+[data-delay="4"] { transition-delay: 0.44s; }
+[data-delay="5"] { transition-delay: 0.56s; }
+
+/* section label + title slide-in pair */
+.reveal-pair .section-label,
+.reveal-pair .section-title,
+.reveal-pair .section-divider {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.55s cubic-bezier(.22,.68,0,1.1), transform 0.55s cubic-bezier(.22,.68,0,1.1);
+}
+.reveal-pair.is-visible .section-label  { opacity: 1; transform: none; transition-delay: 0s; }
+.reveal-pair.is-visible .section-title  { opacity: 1; transform: none; transition-delay: 0.1s; }
+.reveal-pair.is-visible .section-divider{ opacity: 1; transform: none; transition-delay: 0.2s; }
+
+/* horizontal scroll-ticker line (decorative) */
+.ticker-line {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+  font-size: .68rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  color: var(--chalk-dim);
+}
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 22s linear infinite;
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* smooth underline hover on nav */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 100%;
+  height: 1px;
+  background: var(--chalk);
+  transition: right 0.25s ease;
+}
+.nav-links a:hover::after { right: 0; }
+
+
+/* ── HISTORY STICKY SCROLL ── */
+#history { background: #111111; padding-bottom: 0; }
+#history .container { padding-bottom: 0; }
+
+.hist-scroll {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.hist-sticky {
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 4rem 0 4rem;
+}
+
+.hist-num {
+  font-family: var(--font);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--chalk);
+  line-height: 1;
+  letter-spacing: -.03em;
+  transition: opacity .4s ease;
+  min-width: 4rem;
+}
+
+.hist-content {
+  border-left: 1px solid var(--border);
+  padding-left: 4rem;
+}
+
+.hist-panel {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 0;
+  opacity: 0.28;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.hist-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 750px) {
+  .hist-scroll { grid-template-columns: 1fr; padding: 0 1.2rem; }
+  .hist-sticky { display: none; }
+  .hist-content { border-left: none; padding-left: 0; }
+  .hist-panel { opacity: 1; transform: none; min-height: auto; padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .hist-panel:last-child { border-bottom: none; }
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav { padding: 0 1.5rem; }
