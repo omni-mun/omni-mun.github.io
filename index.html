@@ -482,7 +482,11 @@
         <span class="step-label">step one</span>
         <h3 class="step-title">register &amp; join the delegation</h3>
         <p class="step-body">sign up on this site and fill out the conference form. once registration closes, you'll get added to the omni mun group chat where we coordinate everything — payments, hotel rooms, and prep.</p>
-        <a href="#conferences" class="btn-outline" style="margin-top:1.4rem;display:inline-block">register for smunc xxx</a>
+        <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem">
+          <a href="#conferences" class="btn-outline" style="display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=smunc]').classList.add('active');document.getElementById('conf-smunc').style.display='block'">smunc xxx</a>
+          <a href="#conferences" class="btn-outline" style="display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=bearmun]').classList.add('active');document.getElementById('conf-bearmun').style.display='block'">bearmun viii</a>
+          <a href="#conferences" class="btn-outline" style="display:inline-block" onclick="document.querySelectorAll('.conf-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.conf-panel').forEach(p=>p.style.display='none');document.querySelector('[data-conf=gauchomun]').classList.add('active');document.getElementById('conf-gauchomun').style.display='block'">gauchomun xviii</a>
+        </div>
       </div>
 
       <div class="step-panel" data-step="2">
