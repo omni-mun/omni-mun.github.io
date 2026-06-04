@@ -9,22 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.conf-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.conf-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.conf-panel').forEach(p => {
-        p.style.display = 'none';
-        p.classList.remove('active');
-      });
+      document.querySelectorAll('.conf-panel').forEach(p => p.style.display = 'none');
       tab.classList.add('active');
       const panel = document.getElementById('conf-' + tab.dataset.conf);
-      if (panel) { panel.style.display = 'block'; panel.classList.add('active'); }
+      if (panel) panel.style.display = 'block';
     });
   });
 
   // ── Update all reg forms based on auth state ──────────────────
   window.updateRegForms = () => {
     const user = window.currentUser;
+
+    // show/hide logged-out prompts
     document.querySelectorAll('.reg-logged-out').forEach(el => {
       el.style.display = user ? 'none' : 'block';
     });
+
+    // show/hide each form
     document.querySelectorAll('.reg-form').forEach(form => {
       const confKey = form.dataset.conf.toLowerCase().replace(/\s+/g, '');
       const submitted = user && localStorage.getItem('om_reg_' + confKey + '_' + user.id);
@@ -44,28 +45,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentUser = window.currentUser;
       if (!currentUser) return;
 
-      const confName    = form.dataset.conf;
-      const confKey     = confName.toLowerCase().replace(/\s+/g, '');
-      const errEl       = form.querySelector('.reg-error');
-      const btn         = form.querySelector('.reg-submit');
+      const confName = form.dataset.conf;
+      const confKey  = confName.toLowerCase().replace(/\s+/g, '');
+      const errEl    = form.querySelector('.reg-error');
+      const btn      = form.querySelector('.form-submit');
 
+      // helper: get value by class within this form
       const get = cls => (form.querySelector('.' + cls) || {}).value?.trim() || '';
 
-      const instagram    = get('r-instagram');
-      const exp          = get('r-exp');
-      const committee    = get('r-committee');
-      const notes        = get('r-notes');
-      const guardianName = get('r-guardian-name');
-      const guardianEmail= get('r-guardian-email');
-      const guardianPhone= get('r-guardian-phone');
-      const hotel        = get('r-hotel');
-      const roommate     = get('r-roommate');
-      const description  = get('r-description');
+      const instagram     = get('r-instagram');
+      const exp           = get('r-exp');
+      const committee     = get('r-committee');
+      const notes         = get('r-notes');
+      const guardianName  = get('r-guardian-name');
+      const guardianEmail = get('r-guardian-email');
+      const guardianPhone = get('r-guardian-phone');
+      const hotel         = get('r-hotel');
+      const roommate      = get('r-roommate');
+      const description   = get('r-description');
 
       errEl.classList.remove('show');
 
       if (!exp || !committee || !guardianName || !guardianEmail || !guardianPhone || !hotel) {
-        errEl.textContent = 'please fill in all required fields.';
+        errEl.textContent = 'please fill in all required fields (marked with *).';
         errEl.classList.add('show');
         errEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
